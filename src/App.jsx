@@ -1,5 +1,6 @@
 import './App.css';
-import { BrowserRouter as BrowserRouter, Route, Routes } from 'react-router-dom';
+//import { BrowserRouter as BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Home from "./components/Home";
 import Page1 from "./components/Page1";
@@ -13,7 +14,7 @@ import CSV from "./components/CSV";
 import GoogleSheet from "./components/GoogleSheet";
 import IpfsTest from "./components/IpfsTest";
 
-
+/*
 function App() {
 
   return (
@@ -38,5 +39,27 @@ function App() {
 
   );
 }
+*/
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path={`/`} element={<Home />} />
+        <Route path={`/Page1`} element={<Page1 />} />
+        <Route path={`/Page2`} element={<Page2 />} />
+        <Route path={`/Page3`} element={<Page3 />} />
+        <Route path={`/Card`} element={<Card  />} />
+        <Route path={`/CardSmall`} element={<CardSmall />} />
+        <Route path={'/CardTestPage'} element={<CardTestPage />} />
+        <Route path={'/CardDetailPage/:id'} element={<CardDetailPage />} />
+        <Route path={`/CSV`} element={<CSV />} />
+        <Route path={`/GoogleSheet`} element={<GoogleSheet />} />
+        <Route path={`/IpfsTest`} element={<IpfsTest />} />
+      </Routes>
+    </Router>
+  );
+}
+
 
 export default App;
