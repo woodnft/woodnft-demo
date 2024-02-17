@@ -1,0 +1,33 @@
+
+  .card {
+
+    flex: 0 1 calc(100% / 2 - 20px); /* 画面幅の50%を使用し、両サイドにマージンを考慮 */
+    text-align: center;
+    margin: 10px;
+    width: calc(50% - 20px); /* カードの幅を計算して設定します */
+    height: 500px; /* カードの高さを設定します */
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+  }
+  
+.container-all {
+  border: 1px solid #aa0000;
+  width: 100%;
+  max-width: 1200px;
+  /* 例: ページの最大幅を設定 */
+  margin: 0 auto;
+  padding: 0 100px;
+  /* 左右に100pxのオフセットを設定 */
+}
+
+.cardlist {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 800px;
+  border: 1px solid #0000aa;
+  gap: 30px
+}
+
