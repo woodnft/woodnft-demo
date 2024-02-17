@@ -15,9 +15,12 @@ import IpfsTest from "./components/IpfsTest";
 
 
 function App() {
+
+  const URL = process.env.PUBLIC_URL;
+
   return (
     <BrowserRouter>
-      <Routes>
+      <Routes basename={process.env.PUBLIC_URL}>
         <Route path={`/`} element={<Home />} />
         <Route path={`/Page1`} element={<Page1 />} />
         <Route path={`/Page2`} element={<Page2 />} />
