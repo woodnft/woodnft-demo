@@ -50,7 +50,7 @@ const Card = ({ id }) => {
 
 
             <div style={{backgroundColor:'#eeeeee', height:'0%', paddingBottom:'55%', position:'relative', overflow:'hidden'}}>
-                <img src={"/wood-samples/"+ ('00'+id).slice(-2)+".png"} alt="説明文" style={{ width: 'auto', height: '100%', position: 'absolute', top: '0', left: '50%', transform: 'translateX(-50%)' }} />
+                <img src={"/woodnft-demo/wood-samples/"+ ('00'+id).slice(-2)+".png"} alt="説明文" style={{ width: 'auto', height: '100%', position: 'absolute', top: '0', left: '50%', transform: 'translateX(-50%)' }} />
             </div>
                 
             <div style={{margin:'5px 60px'}}>
