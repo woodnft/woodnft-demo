@@ -1,26 +1,27 @@
-import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useNFTData } from "./hooks/useNFTData";
+import users from "./userData";
 
 import Button from './Button';
-import woodData from './WoodData';
 
 
 
 
-const Card = ({ id }) => {
+const CardSmall = ({ tokenId, ownerName }) => {
 
     //const { id, price, data1_name, data1_value, data2_name, data2_value } = props;
     const navigate = useNavigate();
 
-    //const location = useLocation();
-    //const cardData = location.state; // ナビゲート時に渡されたstateを取得
-    //const id = parseInt(props.id, 10);
-    //id = 2;
-    id = parseInt(id, 10)
-    const cardData = woodData.find(item => item.id === id)
-    if (!cardData) {
-        return <div> IDが{id}のデータは見つかりませんでした。</div>
-    }
+    //NFTCSVhookを用いてcsvを効率的に読み込む
+    const { data, isLoading } = useNFTData();
+    if (isLoading) return <div>Loading...</div>;
+    const nft = data.find(nft => nft.tokenId.toString() === tokenId.toString());
+    if (!nft) return <div>NFT not found, tokenID: {tokenId}</div>;
+
+    //ownerNameが渡されていない場合
+    if(!ownerName){
+        ownerName = users.find(user => user.userHash === nft.owner).name;
+    } 
 
     const attributeStyle = {
         display: 'flex',
@@ -46,48 +47,53 @@ const Card = ({ id }) => {
         <div style={cardStyle}> 
 
             <h3>Wood Info-SMALL </h3>
-            <p style={{textAlign:'right', fontWeight:'bold', marginRight:'10%'}}>{cardData.status}</p>
+            <div style={{margin:'5px 40px'}}>
+                <div style={attributeStyle}>
+                    <div textAlign='left'><p style={{fontWeight:'bold'}}>{nft.condition}</p></div>
+                    <div textAlign='right'><p style={{ fontWeight: 'bold' }}>{nft.saleStatus}</p></div>
+                </div>
+            </div>
 
 
             <div style={{backgroundColor:'#eeeeee', height:'0%', paddingBottom:'55%', position:'relative', overflow:'hidden'}}>
-                <img src={"/woodnft-demo/wood-samples/"+ ('00'+id).slice(-2)+".png"} alt="説明文" style={{ width: 'auto', height: '100%', position: 'absolute', top: '0', left: '50%', transform: 'translateX(-50%)' }} />
+                <img src={"/woodnft-demo/wood-samples/"+ ('00'+tokenId).slice(-2)+".png"} alt="説明文" style={{ width: 'auto', height: '100%', position: 'absolute', top: '0', left: '50%', transform: 'translateX(-50%)' }} />
             </div>
                 
             <div style={{margin:'5px 60px'}}>
                 <div style={attributeStyle}>
-                    <div textAlign='left'><p style={{fontWeight:'bold'}}>ID {cardData.id}</p></div>
-                    <div textAlign='right'><p style={{ fontWeight: 'bold' }}>Price {cardData.price} ETH</p></div>
+                    <div textAlign='left'><p style={{fontWeight:'bold'}}>ID: {nft.tokenId}</p></div>
+                    <div textAlign='right'><p style={{ fontWeight: 'bold' }}>{nft.salePriceETH} ETH</p></div>
                 </div>
                 <div style={attributeStyle}>
                     <div textAlign='left'>所有者</div>
-                    <div textAlign='right'>{cardData.owner}</div>
+                    <div textAlign='right'>{ownerName}</div>
                 </div>
                 <div style={attributeStyle}>
                     <div textAlign='left'>生産者</div>
-                    <div textAlign='right'>{cardData.productor}</div>
+                    <div textAlign='right'>{nft.producer}</div>
                 </div>
                 <div style={attributeStyle}>
                     <div textAlign='left'>生産方法</div>
-                    <div textAlign='right'>{cardData.method}</div>
+                    <div textAlign='right'>{nft.productionMethod}</div>
                 </div>
                 <div style={attributeStyle}>
                     <div textAlign='left'>生産地</div>
-                    <div textAlign='right'>{cardData.location}</div>
+                    <div textAlign='right'>{nft.productionLocation}</div>
                 </div>
                 <div style={attributeStyle}>
                     <div textAlign='left'>生産日</div>
-                    <div textAlign='right'>{cardData.date}</div>
+                    <div textAlign='right'>{nft.productionDate}</div>
                 </div>
                 <div style={attributeStyle}>
                     <div textAlign='left'>樹種</div>
-                    <div textAlign='right'>{cardData.kind}</div>
+                    <div textAlign='right'>{nft.treeSpecies}</div>
                 </div>
                 
             </div>
 
 
 
-            <Button to={"/CardDetailPage/"+id}>詳細</Button>
+            <Button to={"/CardDetailPage/"+tokenId}>詳細</Button>
 
         
         </div>
@@ -95,5 +101,5 @@ const Card = ({ id }) => {
     );
   };
   
-  export default Card;
+  export default CardSmall;
 

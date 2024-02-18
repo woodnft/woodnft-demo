@@ -1,0 +1,5 @@
+USER-ID,USER-HASH,Name,Location,Occupation,Image-URL
+0,0x8C91A0BA9871834D630d062FC73E123Ce65D78Cc,山本さん,新潟,林業家,forester.png
+1,0x8Caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,野田さん,神奈川,デザイナー,designer.png
+2,0x8Cbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb,志摩さん,東京,ヘルパー,helper.png
+3,0x8Ccccccccccccccccccccccccccccccccccccccc,佐藤さん,千葉,閲覧者,user.png

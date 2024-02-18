@@ -4,7 +4,7 @@ import TabNFT from './TabNFT';
 
 export const Page2 = () => {
 
-  const cardIds = [1,2,3,4];
+  const cardIds = [0,1,2,3,4,5,6,7,8,9];
 
 
 
@@ -19,7 +19,7 @@ export const Page2 = () => {
         <div style={{display:'flex', justifyContent:'center', border:'1px solid #00aa00'}}>
           <div className='cardlist'>
             {cardIds.map((id) => (
-              <CardSmall id={id.toString()}/>
+              <CardSmall tokenId={id.toString()}/>
             ))}
           </div>
 

@@ -29,7 +29,7 @@ const CardDetailPage = () => {
             <h1>カード詳細 ID: {id}</h1>
 
             <div style={{height: '2000px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '30px',}}>
-                <Card id={id}></Card>
+                <Card tokenId={id}></Card>
                 <RoyalityGraph></RoyalityGraph>
             </div>
 
