@@ -13,6 +13,7 @@ import CardSmall from "./components/CardSmall";
 import CSV from "./components/CSV";
 import GoogleSheet from "./components/GoogleSheet";
 import IpfsTest from "./components/IpfsTest";
+import PageRoyalty from './components/PageRoyalty';
 
 /*
 function App() {
@@ -56,6 +57,7 @@ function App() {
         <Route path={`/CSV`} element={<CSV />} />
         <Route path={`/GoogleSheet`} element={<GoogleSheet />} />
         <Route path={`/IpfsTest`} element={<IpfsTest />} />
+        <Route path={`/Royalty`} element={<PageRoyalty />} />
       </Routes>
     </Router>
   );

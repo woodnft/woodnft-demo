@@ -2,7 +2,6 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import Card from './Card';
-import RoyalityGraph from './RoyalityGraph';
 
 const CardDetailPage = () => {
     
@@ -30,7 +29,6 @@ const CardDetailPage = () => {
 
             <div style={{height: '2000px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '30px',}}>
                 <Card tokenId={id}></Card>
-                <RoyalityGraph></RoyalityGraph>
             </div>
 
 
