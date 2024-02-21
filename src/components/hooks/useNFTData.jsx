@@ -19,6 +19,11 @@ export function useNFTData() {
             setIsLoading(false);
           }
         });
+      })
+      .catch(error => {
+        console.error("Fetching NFT data failed:", error);
+        setIsLoading(false);
+        // 必要に応じてエラー状態を設定
       });
   }, []);
 

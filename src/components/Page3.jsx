@@ -12,10 +12,12 @@ const Page3 = () => {
   const [user, setUser] = useState(null); // currentUserの状態を追加
   const { userId } = useUser(); // 現在のユーザーIDを取得
 
+
   useEffect(() => {
     // userをuserIdから検索
     const foundUser = users.find(user => user.userId === userId);
     setUser(foundUser); // userの状態を更新
+
 
     // userが見つかった場合のみfetchを実行
     if (foundUser) {
@@ -36,10 +38,11 @@ const Page3 = () => {
     }
   }, [userId]); // userIdが変更されたときにのみ実行
 
+
   if (!user) {
     return <div>ユーザーが見つかりません User-ID:{userId}</div>;
   }
-
+  
 
     return (
       <div>

@@ -14,6 +14,7 @@ import CSV from "./components/CSV";
 import GoogleSheet from "./components/GoogleSheet";
 import IpfsTest from "./components/IpfsTest";
 import PageRoyalty from './components/PageRoyalty';
+import UserInfo from './components/userInfo';
 
 /*
 function App() {
@@ -58,6 +59,7 @@ function App() {
         <Route path={`/GoogleSheet`} element={<GoogleSheet />} />
         <Route path={`/IpfsTest`} element={<IpfsTest />} />
         <Route path={`/Royalty`} element={<PageRoyalty />} />
+        <Route path={`/UserInfo`} element={<UserInfo />} />
       </Routes>
     </Router>
   );
