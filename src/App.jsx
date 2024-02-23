@@ -15,6 +15,7 @@ import GoogleSheet from "./components/GoogleSheet";
 import IpfsTest from "./components/IpfsTest";
 import PageRoyalty from './components/PageRoyalty';
 import UserInfo from './components/userInfo';
+import NetworkGraph from './components/NetworkGraph';
 
 /*
 function App() {
@@ -60,6 +61,7 @@ function App() {
         <Route path={`/IpfsTest`} element={<IpfsTest />} />
         <Route path={`/Royalty`} element={<PageRoyalty />} />
         <Route path={`/UserInfo`} element={<UserInfo />} />
+        <Route path={`/Network`} element={<NetworkGraph />} />
       </Routes>
     </Router>
   );

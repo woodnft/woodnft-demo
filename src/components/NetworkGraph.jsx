@@ -1,0 +1,194 @@
+import React, { useState, useEffect, useRef } from 'react';
+import TabNFT from './TabNFT';
+import { useNFTData } from './hooks/useNFTData';
+import { DataSet, Network } from 'vis-network/standalone'; 
+import { useNavigate } from 'react-router-dom';
+
+const NetworkGraph = (props) => {
+  const networkRef = useRef(null);
+  const { data, isLoading } = useNFTData();
+  const navigate = useNavigate();
+  
+  console.log("nftData:", data);
+
+  const tokenId = !props.tokenId ? 1 : props.tokenId;
+  console.log("tokenId:", tokenId);
+
+  //ネットワークの設定
+  useEffect(() => {
+
+    //if(isLoading) return <div>Loading...</div>;
+      
+    // ノードとエッジのデータセットを作成
+    const nodes = data.map(d => ({
+      id: d.tokenId, 
+      shape: 'image', image: "/woodnft-demo/wood-samples/"+ ('00'+d.tokenId).slice(-2)+".png",
+      label: 'ID:' + d.tokenId
+      }
+    ));
+
+    const edges = [];
+    const floatingNodeIDs = [];
+    data.forEach(d => {
+      if (d.parentId>0) {
+        edges.push({from: d.parentId, to: d.tokenId, label: d.productionMethod});
+      } else {
+        floatingNodeIDs.push(d.tokenId);
+      }
+    });
+
+    //フォーカスしたいノード
+    const nodeIdToFocus = parseInt(tokenId, 10);
+    console.log("node to", nodeIdToFocus);
+
+    // ネットワークの設定
+    const networkData = { nodes, edges };
+    const network = new Network(networkRef.current, networkData, options);
+
+    network.once("initRedraw", () => {
+      network.focus(nodeIdToFocus, {
+        scale: 4.0,
+      });
+    });
+
+    // ネットワークの初期化後、イベントリスナーを設定
+    network.on("click", function (params) {
+      // params.nodesには、クリックされたノードのIDの配列が含まれています。
+      // クリックされたノードが1つもない場合は、空の配列になります。
+      if (params.nodes.length > 0) {
+        const nodeId = params.nodes[0]; // クリックされた最初のノードのID
+        console.log("クリックされたノードのID:", nodeId);
+        navigate("/CardDetailPage/"+nodeId);
+      }
+    });
+      
+
+    // ノードを滑らかに動かす関数
+    function moveNodesSmoothlyWithDirectionChange(network, nodeIDs, duration) {
+      const startTime = performance.now();
+      let lastDirectionChangeTime = startTime; // 最後に方向を変えた時間
+      const directionChangeInterval = 5000; // 方向を変える間隔（ミリ秒）
+      let angle = Math.random() * Math.PI * 2; // 初期角度
+
+      function animate(time) {
+        const elapsedTime = time - startTime;
+        if (elapsedTime > duration) return; // 指定時間が経過したら停止
+
+        // 5秒ごとに方向を変更
+        if (time - lastDirectionChangeTime > directionChangeInterval) {
+          angle = Math.random() * Math.PI * 2; // 新しい角度
+          lastDirectionChangeTime = time;
+        }
+
+        nodeIDs.forEach(nodeID => {
+          const nodePosition = network.getPositions([nodeID])[nodeID];
+          const stepSize = 10; // 1ステップのサイズ（ピクセル）
+
+          // 新しい位置を計算
+          const newPosition = {
+            x: nodePosition.x + Math.cos(angle) * stepSize,
+            y: nodePosition.y + Math.sin(angle) * stepSize,
+          };
+
+          // ノードの位置を更新
+          network.moveNode(nodeID, newPosition.x, newPosition.y);
+        });
+
+        // 次のフレームで再度animateを呼び出す
+        requestAnimationFrame(animate);
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    // ノードを滑らかに動かし始める
+    //moveNodesSmoothlyWithDirectionChange(network, floatingNodeIDs, 20000); // 20秒間動かす
+    }, [data, isLoading]);
+    
+
+
+
+    // グラフのオプション
+    const options = {
+      layout: {
+        hierarchical: {
+          enabled: false,
+          levelSeparation: 150,
+          nodeSpacing: 100,
+          treeSpacing: 200,
+          direction: 'UD', // 例: 上から下へ
+          sortMethod: 'directed' // 'directed' or 'hubsize'
+        }
+      },
+      physics: {
+        enabled: true,
+        barnesHut: {
+          gravitationalConstant: -2000,
+          centralGravity: 0.3,
+          springLength: 95,
+          springConstant: 0.04,
+          damping: 0.09,
+          avoidOverlap: 0
+        },
+        solver: 'barnesHut'
+      },
+
+      interaction: {
+        zoomView: true, // ユーザーによるズームを許可
+        dragView: true, // ユーザーによるビューのドラッグを許可
+      },
+
+      nodes: {
+        borderWidth: 2,
+        size: 30,
+        color: {
+          border: '#406897',
+          background: '#6AAFFF'
+        },
+        font: {
+          color: '#000000',
+          size: 8
+        }
+      },
+      edges: {
+        arrows: {
+          to: {enabled: true, scaleFactor: 0.5}, // すべてのエッジに矢印を表示
+        },
+        color: 'blue',
+        font: {
+          color: 'black', // ラベルのデフォルトの色
+          size: 8, // ラベルのフォントサイズ
+          strokeWidth: '0',
+          // 他のフォントオプション...
+        },
+      },
+      
+    };
+
+    
+
+  
+
+  // イベントハンドラ
+  const events = {
+    select: function(event) {
+      var { nodes, edges } = event;
+    }
+  };
+
+  const NetworkStyle = {
+    height: "500px",
+    width: "100%",
+    backgroundColor: "#dddddd"
+  };
+
+  return (
+    <div>
+      <h1>系譜図</h1>
+      <div ref={networkRef} style={NetworkStyle}></div>
+    </div>
+  );
+};
+
+
+export default NetworkGraph;

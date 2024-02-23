@@ -24,6 +24,7 @@ const TabNFT = () => {
       <button onClick={() => goTo('/Page3')}>NFT 保有</button>
       <button onClick={() => goTo('/Royalty')}>ロイヤリティ分配</button>
       <button onClick={() => goTo('/UserInfo')}>ユーザー情報</button>
+      <button onClick={() => goTo('/Network')}>系譜図</button>
 
     </div>
   );
