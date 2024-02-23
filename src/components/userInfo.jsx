@@ -1,20 +1,19 @@
-import { useUser } from "./userContext";
 import React, { useState, useEffect } from 'react';
-import users from "./userData";
 import TabNFT from './TabNFT';
-import { useRoyaltyDistribution } from "./hooks/useRoylaltyDistribution";
+import { useRoyaltyDistribution } from "./hooks/customHooks";
+import { useUser } from "./hooks/userContext";
+
 
 const UserInfo = () => {
 
     //user,rd を読み込む
-    const { userId } = useUser();
+    const { user } = useUser();
     const { data, isLoading } = useRoyaltyDistribution();
 
     //エラーが発生したら表示しreturn
-    if ((userId === null || userId === undefined)) return <div> 現在のユーザーが設定されていません</div>;
+    if ((user === null || user === undefined)) return <div> 現在のユーザーが設定されていません</div>;
     if (!data) return <div>ロイヤリティ変遷が正しく読み込まれませんでした</div>;
 
-    const user = users.find(user => user.userId === userId);
     if (isLoading) return <div>Loading...</div>;
     const rd = data.filter(rd => rd.recipient === user.userHash);
 

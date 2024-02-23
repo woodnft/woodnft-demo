@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import TabNFT from './TabNFT';
-import { useNFTData } from './hooks/useNFTData';
+import { useNFTData } from './hooks/customHooks';
 import { DataSet, Network } from 'vis-network/standalone'; 
 import { useNavigate } from 'react-router-dom';
 
@@ -22,15 +22,20 @@ const NetworkGraph = (props) => {
     // ノードとエッジのデータセットを作成
     const nodes = data.map(d => ({
       id: d.tokenId, 
-      shape: 'image', image: "/woodnft-demo/wood-samples/"+ ('00'+d.tokenId).slice(-2)+".png",
+      shape: 'image', image: "/woodnft-demo/wood-samples/"+ ('000'+d.tokenId).slice(-3)+".png",
       label: 'ID:' + d.tokenId
       }
     ));
 
-    const edges = [];
+    const edges = []; 
     const floatingNodeIDs = [];
     data.forEach(d => {
-      if (d.parentId>0) {
+      if (d.parentId.includes(',')){
+        const parentIds = d.parentId.split(",");
+        parentIds.forEach((p) => {
+          edges.push({from: p, to: d.tokenId, label: d.productionMethod});
+        });
+      }else if (d.parentId>0) {
         edges.push({from: d.parentId, to: d.tokenId, label: d.productionMethod});
       } else {
         floatingNodeIDs.push(d.tokenId);
@@ -139,10 +144,10 @@ const NetworkGraph = (props) => {
       },
 
       nodes: {
-        borderWidth: 2,
+        borderWidth: 4,
         size: 30,
         color: {
-          border: '#406897',
+          border: '#00aaaa',
           background: '#6AAFFF'
         },
         font: {

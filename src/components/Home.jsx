@@ -1,20 +1,31 @@
 import { useNavigate } from "react-router-dom";
-import { useUser } from "./userContext";
-import woodData from './WoodData';
-import users from './userData';
-
-
+import { useUser } from "./hooks/userContext";
+import { useUserData } from "./hooks/customHooks";
 
 
 const Home = () => {
-  const { setUserId } = useUser();
+  const { setUser } = useUser();
+  const { data: users , isLoading } = useUserData();
   const navigate = useNavigate(); 
 
-  const handleUserClick = (userId) => {
-    setUserId(userId);
-    navigate(`/Page3`);
-  };
+  console.log("users:", users);
 
+  if (isLoading || !users) return <div>Loading...</div>;
+
+
+  //選択できるユーザーのIDを入力
+  const selectionIds = [ "1", "5", "14", "18" ];
+  
+  const selectionUsers = [];
+  selectionIds.forEach((i) => {
+    selectionUsers.push(users.find(u => u.userId === i));
+  });
+
+
+  const handleUserClick = (selectedUser) => {
+    setUser(selectedUser);
+    navigate(`/mypage`);
+  };
 
 
   const HomeStyle = {
@@ -65,15 +76,15 @@ const Home = () => {
     <div style={HomeStyle.container}>
       <h1 style={HomeStyle.title}>WOODNFT APP DEMO</h1>
       <div style={HomeStyle.userButtonsContainer}>
-        {users.map((user) => (
-          <div key={user.id} onClick={()=>handleUserClick(user.userId)}>
+        {selectionUsers.map((u) => (
+          <div onClick={()=>handleUserClick(u)}>
             <button style={HomeStyle.userButton}>
-              <img src={"/woodnft-demo/user/"+user.imageUrl} alt={user.name} style={HomeStyle.userImage } />
+              <img src={"/woodnft-demo/user/"+u.profileUrl} alt={u.name} style={HomeStyle.userImage } />
             </button>
             <div style={HomeStyle.userInfo}>
-              <div>{user.name}</div>
-              <div>{user.location}</div>
-              <div>{user.occupation}</div>
+              <div>{u.name}</div>
+              <div>{u.location}</div>
+              <div>{u.occupation}</div>
             </div>
           </div>
         ))}

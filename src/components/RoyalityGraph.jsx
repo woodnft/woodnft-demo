@@ -2,31 +2,27 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chartjs-adapter-luxon';
 import 'chart.js/auto';
-import { useRoyaltyDistribution } from './hooks/useRoylaltyDistribution';
-import users from './userData';
-import { useUser } from './userContext';
+import { useRoyaltyDistribution } from './hooks/customHooks';
+import { useUser } from './hooks/userContext';
 
 const RoyalityGraph = () => {
 
-  //const navigate = useNavigate();
-
   //userを読み込む
-  const { userId } = useUser();
-  console.log('userid:', userId);
+  const { user } = useUser();
+  console.log('user:', user);
 
   //ロイヤリティ分配csvを読み込む
   const { data, isLoading } = useRoyaltyDistribution();
   console.log('transactions:', data);
 
   //エラーが発生したら表示しreturn
-  if((userId === null || userId === undefined)) return <div> 現在のユーザーが設定されていません</div>;
+  if((user === null || user === undefined)) return <div> 現在のユーザーが設定されていません</div>;
   if (!data) return <div>ロイヤリティ変遷が正しく読み込まれませんでした</div>;
 
 
-  const user = users.find(user => user.userId === userId);
   if (isLoading) return <div>Loading...</div>;
   const rd = data.filter(rd => rd.recipient === user.userHash);
-  if (rd.length === 0) return <div>royalty distribution not found, userID: {userId}</div>;
+  if (rd.length === 0) return <div>royalty distribution not found, userId: {user.userId}</div>;
   console.log('rd', rd);
 
 

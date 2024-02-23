@@ -3,62 +3,28 @@ import './App.css';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Home from "./components/Home";
-import Page1 from "./components/Page1";
-import Page2 from "./components/Page2";
-import Page3 from "./components/Page3";
+import Mint from "./components/Mint";
+import View from "./components/View";
+import MyPage from "./components/MyPage";
 import Card from "./components/Card";
-import CardTestPage from "./components/CardTestPage";
 import CardDetailPage from "./components/CardDetailPage";
 import CardSmall from "./components/CardSmall";
-import CSV from "./components/CSV";
-import GoogleSheet from "./components/GoogleSheet";
-import IpfsTest from "./components/IpfsTest";
 import PageRoyalty from './components/PageRoyalty';
 import UserInfo from './components/userInfo';
 import NetworkGraph from './components/NetworkGraph';
 
-/*
-function App() {
-
-  return (
-    <BrowserRouter basename={process.env.PUBLIC_URL || ""}>
-      <Routes>
-        <Route path={`/`} element={<Home />} />
-        <Route path={`/Page1`} element={<Page1 />} />
-        <Route path={`/Page2`} element={<Page2 />} />
-        <Route path={`/Page3`} element={<Page3 />} />
-        <Route path={`/Card`} element={<Card  />} />
-        <Route path={`/CardSmall`} element={<CardSmall />} />
-        <Route path={'/CardTestPage'} element={<CardTestPage />} />
-        <Route path={'/CardDetailPage/:id'} element={<CardDetailPage />} />
-        <Route path={`/CSV`} element={<CSV />} />
-        <Route path={`/GoogleSheet`} element={<GoogleSheet />} />
-        <Route path={`/IpfsTest`} element={<IpfsTest />} />
-
-
-
-      </Routes>
-    </BrowserRouter>
-
-  );
-}
-*/
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path={`/`} element={<Home />} />
-        <Route path={`/Page1`} element={<Page1 />} />
-        <Route path={`/Page2`} element={<Page2 />} />
-        <Route path={`/Page3`} element={<Page3 />} />
+        <Route path={`/mint`} element={<Mint />} />
+        <Route path={`/view`} element={<View />} />
+        <Route path={`/mypage`} element={<MyPage />} />
         <Route path={`/Card`} element={<Card  />} />
         <Route path={`/CardSmall`} element={<CardSmall />} />
-        <Route path={'/CardTestPage'} element={<CardTestPage />} />
         <Route path={'/CardDetailPage/:id'} element={<CardDetailPage />} />
-        <Route path={`/CSV`} element={<CSV />} />
-        <Route path={`/GoogleSheet`} element={<GoogleSheet />} />
-        <Route path={`/IpfsTest`} element={<IpfsTest />} />
         <Route path={`/Royalty`} element={<PageRoyalty />} />
         <Route path={`/UserInfo`} element={<UserInfo />} />
         <Route path={`/Network`} element={<NetworkGraph />} />

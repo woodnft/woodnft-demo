@@ -36,12 +36,7 @@ const CardDetailPage = () => {
             </div>
             <div>
                 <NetworkGraph tokenId={id} />
-            </div>
-            
-
-
-
-            
+            </div>          
 
         </div>
     );
