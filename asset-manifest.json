@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/woodnft-demo/static/css/main.a164a867.css",
-    "main.js": "/woodnft-demo/static/js/main.069b6bcb.js",
+    "main.js": "/woodnft-demo/static/js/main.bdc4c06b.js",
     "index.html": "/woodnft-demo/index.html",
     "main.a164a867.css.map": "/woodnft-demo/static/css/main.a164a867.css.map",
-    "main.069b6bcb.js.map": "/woodnft-demo/static/js/main.069b6bcb.js.map"
+    "main.bdc4c06b.js.map": "/woodnft-demo/static/js/main.bdc4c06b.js.map"
   },
   "entrypoints": [
     "static/css/main.a164a867.css",
-    "static/js/main.069b6bcb.js"
+    "static/js/main.bdc4c06b.js"
   ]
 }
