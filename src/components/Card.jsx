@@ -65,7 +65,7 @@ const Card = ({ tokenId, ownerName }) => {
 
 
             <div style={{backgroundColor:'#eeeeee', height:'0%', paddingBottom:'70%', position:'relative', overflow:'hidden'}}>
-                <img src={"/woodnft-demo/wood-samples/"+ ('000'+tokenId).slice(-3)+".png"} alt="説明文" style={{ width: 'auto', height: '100%', position: 'absolute', top: '0', left: '50%', transform: 'translateX(-50%)' }} />
+                <img src={"/woodnft-demo/wood-images/"+tokenId+".png"} alt="説明文" style={{ width: 'auto', height: '100%', position: 'absolute', top: '0', left: '50%', transform: 'translateX(-50%)' }} />
             </div>
                 
             <div style={{margin:'20px 110px'}}>

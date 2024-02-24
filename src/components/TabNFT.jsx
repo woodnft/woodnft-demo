@@ -19,12 +19,12 @@ const TabNFT = () => {
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
 
       <button onClick={() => goTo('/')}>ホームへ</button>
-      <button onClick={() => goTo('/Page2')}>NFT 閲覧</button>
-      <button onClick={() => goTo('/Page1')}>NFT 発行</button>
-      <button onClick={() => goTo('/Page3')}>NFT 保有</button>
-      <button onClick={() => goTo('/Royalty')}>ロイヤリティ分配</button>
-      <button onClick={() => goTo('/UserInfo')}>ユーザー情報</button>
-      <button onClick={() => goTo('/Network')}>系譜図</button>
+      <button onClick={() => goTo('/view')}>NFT 閲覧</button>
+      <button onClick={() => goTo('/mint')}>NFT 発行</button>
+      <button onClick={() => goTo('/mypage')}>NFT 保有</button>
+      <button onClick={() => goTo('/royalty')}>ロイヤリティ分配</button>
+      <button onClick={() => goTo('/userinfo')}>ユーザー情報</button>
+      <button onClick={() => goTo('/network')}>系譜図</button>
 
     </div>
   );

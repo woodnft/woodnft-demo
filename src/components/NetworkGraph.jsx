@@ -17,29 +17,48 @@ const NetworkGraph = (props) => {
   //ネットワークの設定
   useEffect(() => {
 
-    //if(isLoading) return <div>Loading...</div>;
-      
+    const nodeSize = [25,40,100];
+    const nodeColor = [{background: 'white', border: 'yellow'}];
+    const edgeColor = ['lightskyblue','khaki','coral','springgreen'];
+
+    const randomColors = [];
+    for (let i = 0; i < 28; i++) {
+      // 16進数で色を生成
+      const color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+      randomColors.push(color);
+    }
+
+
     // ノードとエッジのデータセットを作成
     const nodes = data.map(d => ({
       id: d.tokenId, 
-      shape: 'image', image: "/woodnft-demo/wood-samples/"+ ('000'+d.tokenId).slice(-3)+".png",
-      label: 'ID:' + d.tokenId
+      shape: 'image', image: "/woodnft-demo/wood-images/"+ d.tokenId +".png",
+      label: 'ID:' + d.tokenId,
+      size: d.productionMethod === "採取" ? nodeSize[1] : d.productionMethod === "集成材生産" ? nodeSize[2] : nodeSize[0],
       }
     ));
 
     const edges = []; 
     const floatingNodeIDs = [];
+
     data.forEach(d => {
+      if (!d.parentId){
+        floatingNodeIDs.push(d.tokenId);
+        return;
+      }
+
+      const currentColor = randomColors[d.originalWoodId -1];
+      const currentLabel = d.productionMethod;
+
       if (d.parentId.includes(',')){
         const parentIds = d.parentId.split(",");
         parentIds.forEach((p) => {
-          edges.push({from: p, to: d.tokenId, label: d.productionMethod});
+          edges.push({from:p, to:d.tokenId, color: currentColor, label: currentLabel});
         });
-      }else if (d.parentId>0) {
-        edges.push({from: d.parentId, to: d.tokenId, label: d.productionMethod});
-      } else {
-        floatingNodeIDs.push(d.tokenId);
+      }else{
+        edges.push({from: d.parentId, to: d.tokenId, color: currentColor, label: currentLabel});
       }
+      
     });
 
     //フォーカスしたいノード
@@ -144,22 +163,16 @@ const NetworkGraph = (props) => {
       },
 
       nodes: {
-        borderWidth: 4,
-        size: 30,
-        color: {
-          border: '#00aaaa',
-          background: '#6AAFFF'
-        },
         font: {
           color: '#000000',
           size: 8
         }
       },
       edges: {
+        width: 0.5,
         arrows: {
           to: {enabled: true, scaleFactor: 0.5}, // すべてのエッジに矢印を表示
         },
-        color: 'blue',
         font: {
           color: 'black', // ラベルのデフォルトの色
           size: 8, // ラベルのフォントサイズ
@@ -182,13 +195,14 @@ const NetworkGraph = (props) => {
   };
 
   const NetworkStyle = {
-    height: "500px",
+    height: "80vh",
     width: "100%",
     backgroundColor: "#dddddd"
   };
 
   return (
     <div>
+      <TabNFT />
       <h1>系譜図</h1>
       <div ref={networkRef} style={NetworkStyle}></div>
     </div>
