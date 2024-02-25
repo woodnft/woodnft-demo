@@ -2,7 +2,7 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chartjs-adapter-luxon';
 import 'chart.js/auto';
-import { useRoyaltyDistribution } from './hooks/customHooks';
+import { useNFTData, useRoyaltyDistribution } from './hooks/customHooks';
 import { useUser } from './hooks/userContext';
 
 const RoyalityGraph = () => {
@@ -12,28 +12,26 @@ const RoyalityGraph = () => {
   console.log('user:', user);
 
   //ロイヤリティ分配csvを読み込む
-  const { data, isLoading } = useRoyaltyDistribution();
-  console.log('transactions:', data);
+  const { rdData, rdDataFlatten, isLoading } = useRoyaltyDistribution();
+  console.log('transactionFlatten:', rdDataFlatten);
+
+  //nftを読み込む
+  const { data: tokenData, isLoading: isLoadingTokens } = useNFTData();
 
   //エラーが発生したら表示しreturn
+  if (isLoading || isLoadingUser || isLoadingTokens) return <div>Loading...</div>;
   if((user === null || user === undefined)) return <div> 現在のユーザーが設定されていません</div>;
-  if (!data) return <div>ロイヤリティ変遷が正しく読み込まれませんでした</div>;
+  if (!rdData || !rdDataFlatten) return <div>ロイヤリティ変遷が正しく読み込まれませんでした</div>;
+  if (!tokenData) return <div>NFTデータが読み込まれませんでした</div>
+  
+
+  //現在ユーザーのRDのみにする
+  const userHash = user.userHash;
+  const userRd = rdDataFlatten.filter(rd => rd.recipient === userHash);
+  if (userRd.length === 0) return <div>royalty distribution not found, userId: {user.userId}</div>;
+  console.log('userRD', userRd);
 
 
-  if (isLoading || isLoadingUser) return <div>Loading...</div>;
-  const rd = data.filter(rd => rd.recipient === user.userHash);
-  if (rd.length === 0) return <div>royalty distribution not found, userId: {user.userId}</div>;
-  console.log('rd', rd);
-
-
-  // 日付文字列をISO 8601形式に変換する関数
-  /*
-  function convertDateToISO(dateString) {
-    const [datePart, timePart] = dateString.split(' ');
-    const [year, month, day] = datePart.split('/').map(part => part.padStart(2, '0'));
-    const [hour, minute, second] = timePart.split(':').map(part => part.padStart(2, '0'));
-    return `${year}-${month}-${day}T${hour}:${minute}:${second}`;
-  }*/
   //2024/02/25のような日付形式を変換する場合
   function convertDateToISO(dateString) {
     // Dateオブジェクトを生成
@@ -42,6 +40,13 @@ const RoyalityGraph = () => {
     return date.toISOString();
   }
 
+  // userRDにdateプロパティを追加
+  
+  userRd.forEach((rd) =>{
+    rd.date = convertDateToISO(tokenData[rd.tokenId-1]?.productionDate);
+  });
+
+  /*
   //ロイヤリティ上昇を取引ごとにまとめる
   let rdPerTokenId = []
   for (let i=0; i<rd.length; i++) {
@@ -61,16 +66,16 @@ const RoyalityGraph = () => {
       rdPerTokenId[objIndex].amount += currentRd.amount;
     }
   }
-
   console.log('rdPerTokenId before processing:', rdPerTokenId);
+  */
 
   //ロイヤリティ上昇を日付でソートし、上昇分を加算していく
-  rdPerTokenId.sort((a, b) => new Date(a.date) - new Date(b.date));
-  let rdAccumulation = rdPerTokenId.slice();
+  userRd.sort((a, b) => new Date(a.date) - new Date(b.date));
+  let rdAccumulation = userRd.slice();
   let currentAmount = 0;
-  for (let i=0; i<rdPerTokenId.length; i++) {
+  for (let i=0; i<userRd.length; i++) {
     const currentRd = rdAccumulation[i];
-    currentAmount += parseFloat(currentRd.amount);
+    currentAmount += parseFloat(currentRd.divident);
     currentRd.amount = currentAmount;
   }
 
@@ -81,7 +86,7 @@ const RoyalityGraph = () => {
       {
         label: 'NFT Amount',
         //data: rdAccumulation.map(item => item.amount), // Y軸のデータ（金額）
-        data: rdAccumulation.map(item => ({x: item.date, y: item.amount, tokenId: item.tokenId})), // X, Y値とtokenIdを含むオブジェクト
+        data: rdAccumulation.map(item => ({x: item.date, y: item.amount.toFixed(3), tokenId: item.tokenId})), // X, Y値とtokenIdを含むオブジェクト
         borderColor: 'rgb(75, 192, 192)',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
       }
@@ -106,8 +111,8 @@ const RoyalityGraph = () => {
           text: 'Date'
         },
         // 1ヵ月の表示範囲を設定
-        min: '2024-02-02',
-        max: '2024-03-09'
+        min: rdAccumulation[0]?.date,
+        max: rdAccumulation[-1]?.date,
       }
     },
     plugins: {

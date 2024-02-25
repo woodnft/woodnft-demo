@@ -342,7 +342,7 @@ export const NetworkGraphHierarchical = (props) => {
       },
 
       interaction: {
-        zoomView: false, // ユーザーによるズームを許可
+        zoomView: true, // ユーザーによるズームを許可
         dragView: true, // ユーザーによるビューのドラッグを許可
       },
 

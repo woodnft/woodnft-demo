@@ -14,7 +14,7 @@ const Home = () => {
 
 
   //選択できるユーザーのIDを入力
-  const selectionIds = [ "1", "5", "14", "18" ];
+  const selectionIds = [ "1", "17", "18", "21", "25" ];
   
   const selectionUsers = [];
   selectionIds.forEach((i) => {
@@ -84,6 +84,7 @@ const Home = () => {
             <div style={HomeStyle.userInfo}>
               <div>{u.name}</div>
               <div>{u.location}</div>
+              <div>{u.role}</div>
               <div>{u.occupation}</div>
             </div>
           </div>

@@ -16,7 +16,7 @@ const PageRoyalty = () => {
         <div>
             <TabNFT />
             <h2>ロイヤリティ分配グラフ user: {user.name}</h2>
-            <h3>ロイヤリティ分配のCSVデータを流すまで停止</h3>
+            <RoyalityGraph />
         </div>
         
     )

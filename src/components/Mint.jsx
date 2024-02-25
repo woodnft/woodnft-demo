@@ -136,7 +136,7 @@ const Mint = () => {
  return (
   <div>
     <TabNFT />
-    <h1>NFT発行</h1>
+    <h1>NFT発行：ページ作成中</h1>
   </div>
  )
 };
