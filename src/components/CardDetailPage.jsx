@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import Card from './Card';
-import NetworkGraph from './NetworkGraph';
+import { NetworkGraphHierarchical } from './NetworkGraph';
 import TabNFT from './TabNFT';
 
 const CardDetailPage = () => {
@@ -35,7 +35,7 @@ const CardDetailPage = () => {
                 
             </div>
             <div>
-                <NetworkGraph tokenId={id} />
+                <NetworkGraphHierarchical tokenId={id} />
             </div>          
 
         </div>

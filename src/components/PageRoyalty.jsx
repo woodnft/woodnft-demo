@@ -5,7 +5,9 @@ import TabNFT from "./TabNFT";
 const PageRoyalty = () => {
 
     //userを読み込む
-    const { user } = useUser();
+    const { user , isLoading } = useUser();
+    if(isLoading) return <div>Loading...</div>;
+
     console.log('user:', user);
     if((user === null || user === undefined)) return <div> 現在のユーザーが設定されていません</div>;
 
@@ -14,7 +16,7 @@ const PageRoyalty = () => {
         <div>
             <TabNFT />
             <h2>ロイヤリティ分配グラフ user: {user.name}</h2>
-            <RoyalityGraph />
+            <h3>ロイヤリティ分配のCSVデータを流すまで停止</h3>
         </div>
         
     )

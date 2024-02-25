@@ -1,24 +1,21 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useNFTData, useUserData } from './hooks/customHooks';
 import Button from './Button';
 
 
 
-const CardSmall = ({ tokenId, ownerName }) => {
+const CardSmall = ({ tokenId }) => {
 
     const { data, isLoading } = useNFTData();
-    const { data: users } = useUserData();
+    const { data: users, isLoading: isLoadingUsers } = useUserData();
 
 
-    if (isLoading) return <div>Loading...</div>;
-    const token = data.find(d => d.tokenId === tokenId);
+    if (isLoading || isLoadingUsers) return <div>Loading...</div>;
+    //const token = data.find(d => d.tokenId === tokenId);
+    const token = data[tokenId-1];
     if (!token) return <div>NFT not found, tokenID: {tokenId}</div>;
 
-    //ownerNameが渡されていない場合
-    if(!ownerName){
-        ownerName = users.find(user => user.userId === token.ownerId).name;
-    } 
 
     const attributeStyle = {
         display: 'flex',
@@ -63,15 +60,15 @@ const CardSmall = ({ tokenId, ownerName }) => {
                 </div>
                 <div style={attributeStyle}>
                     <div textAlign='left'>所有者</div>
-                    <div textAlign='right'>{ownerName}</div>
+                    <div textAlign='right'>{users[token.ownerId -1]?.name}</div>
                 </div>
                 <div style={attributeStyle}>
                     <div textAlign='left'>生産者</div>
-                    <div textAlign='right'>{token.pruducerId}</div>
+                    <div textAlign='right'>{users[token.producerId -1]?.name}</div>
                 </div>
                 <div style={attributeStyle}>
                     <div textAlign='left'>生産方法</div>
-                    <div textAlign='right'>{token.productionMethod}</div>
+                    <div textAlign='right'>{token.productionMethod.name}</div>
                 </div>
                 <div style={attributeStyle}>
                     <div textAlign='left'>生産地</div>

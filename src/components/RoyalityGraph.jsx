@@ -8,7 +8,7 @@ import { useUser } from './hooks/userContext';
 const RoyalityGraph = () => {
 
   //userを読み込む
-  const { user } = useUser();
+  const { user, isLoading: isLoadingUser } = useUser();
   console.log('user:', user);
 
   //ロイヤリティ分配csvを読み込む
@@ -20,18 +20,26 @@ const RoyalityGraph = () => {
   if (!data) return <div>ロイヤリティ変遷が正しく読み込まれませんでした</div>;
 
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading || isLoadingUser) return <div>Loading...</div>;
   const rd = data.filter(rd => rd.recipient === user.userHash);
   if (rd.length === 0) return <div>royalty distribution not found, userId: {user.userId}</div>;
   console.log('rd', rd);
 
 
   // 日付文字列をISO 8601形式に変換する関数
+  /*
   function convertDateToISO(dateString) {
     const [datePart, timePart] = dateString.split(' ');
     const [year, month, day] = datePart.split('/').map(part => part.padStart(2, '0'));
     const [hour, minute, second] = timePart.split(':').map(part => part.padStart(2, '0'));
     return `${year}-${month}-${day}T${hour}:${minute}:${second}`;
+  }*/
+  //2024/02/25のような日付形式を変換する場合
+  function convertDateToISO(dateString) {
+    // Dateオブジェクトを生成
+    const date = new Date(dateString);
+    // ISO 8601形式の文字列に変換
+    return date.toISOString();
   }
 
   //ロイヤリティ上昇を取引ごとにまとめる
@@ -99,7 +107,7 @@ const RoyalityGraph = () => {
         },
         // 1ヵ月の表示範囲を設定
         min: '2024-02-02',
-        max: '2024-02-09'
+        max: '2024-03-09'
       }
     },
     plugins: {
