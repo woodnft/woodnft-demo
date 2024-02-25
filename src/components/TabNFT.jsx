@@ -22,6 +22,7 @@ const TabNFT = () => {
       <button onClick={() => goTo('/view')}>NFT 閲覧</button>
       <button onClick={() => goTo('/mint')}>NFT 発行</button>
       <button onClick={() => goTo('/network')}>系譜図</button>
+      <button onClick={() => goTo('/royaltyAll')}>ロイヤリティ全員分</button>
       <button onClick={() => goTo('/mypage')}>マイページ（保有NFT一覧）</button>
       <button onClick={() => goTo('/royalty')}>マイページ（ロイヤリティ分配）</button>
       <button onClick={() => goTo('/userinfo')}>マイページ（ユーザー情報）</button>
