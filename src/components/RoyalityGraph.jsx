@@ -227,8 +227,6 @@ export const RoyalityGraphMultiple = () => {
       currentAmount += parseFloat(currentRd.divident);
       currentRd.amount = currentAmount;
     }
-    console.log("userRd in map:", userRd);
-
     userRdAccumulationMap.set(hash, rdAccumulation);
   } );
 
@@ -237,25 +235,42 @@ export const RoyalityGraphMultiple = () => {
   const hashAmountArray = [...userRdAccumulationMap];
   const allDates = [...new Set(hashAmountArray.flatMap(([hash, rd]) => rd.map(r => r.date)))];
   allDates.sort((a, b) => new Date(a) - new Date(b)); // 日付でソート
-  // グラフ用データの準備
   
+  
+  //色系統の準備
+  const colorFamilies = {
+    "素材生産者": 0, // 赤系
+    "製材所": 240, // 青系
+    "集成材工場": 120, // 緑系
+    "集成材デザイナー": 60, // 黄色系
+    "ユーザー": 0 // 白黒は彩度を0にして扱う
+  };
+  
+  // グラフ用データの準備
   const chartData = {
     labels: allDates,
     datasets: hashAmountArray.map(([hash, rd]) => {
       // ユーザー名をラベルに設定
-      const label = users.find(u => u.userHash === hash)?.name || 'Unknown';
+      const currentUser = users.find(u => u.userHash === hash);
+      const label = currentUser?.name || 'Unknown';
   
       // 各ラベルに対応するデータポイントの値を設定
       const data = allDates.map(date => {
         const matchingRd = rd.findLast(r => r.date === date);
         return matchingRd ? matchingRd.amount : null; // 日付に対応するデータがない場合はnullを設定
       });
+
+      const hue = colorFamilies[currentUser.role];
+      const saturation = currentUser.role === "ユーザー" ? 0 : Math.random() * (100 - 50) + 50;
+      const luminance = Math.random() * (80 - 50) + 50;
+      const currentColor = `hsl(${hue}, ${saturation}%, ${luminance}%)`;
+
   
       return {
         label,
         data,
-        borderColor: `hsl(${Math.random() * 360}, 100%, 50%)`, // 乱数で色を生成
-        backgroundColor: `hsla(${Math.random() * 360}, 100%, 50%, 0.5)`,
+        borderColor: currentColor,
+        backgroundColor: currentColor,
       };
     })
   };
@@ -263,6 +278,7 @@ export const RoyalityGraphMultiple = () => {
   console.log('userRdMap:', userRdMap);
   console.log('userRdAccumulationMap:', userRdAccumulationMap);
   console.log('chartData:', chartData);
+  console.log('alldates:',allDates);
 
   //グラフのオプション
   const chartOptions = {
@@ -279,9 +295,21 @@ export const RoyalityGraphMultiple = () => {
           text: 'Date'
         },
         // 1ヵ月の表示範囲を設定
-        min: '2024-01-01',
-        max: '2024-02-28',
+        min: allDates[0],
+        max: allDates[-1],
       }
+    },
+    
+    spanGaps: true,
+    elements: {
+      line: {
+        borderWidth: 1, // すべての線の太さを2pxに設定
+      },
+      point: {
+        radius: 2, // すべてのノードのサイズ（半径）を5pxに設定
+        backgroundColor: 'black',
+        
+      },
     },
     /*
     plugins: {
