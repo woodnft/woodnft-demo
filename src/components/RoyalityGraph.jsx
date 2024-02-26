@@ -4,6 +4,8 @@ import 'chartjs-adapter-luxon';
 import 'chart.js/auto';
 import { useNFTData, useRoyaltyDistribution, useUserData } from './hooks/customHooks';
 import { useUser } from './hooks/userContext';
+import { useState } from 'react';
+import TabNFT from './TabNFT';
 
 const RoyalityGraph = () => {
 
@@ -186,6 +188,8 @@ export const RoyalityGraphMultiple = () => {
   //ユーザーデータを読み込む
   const { data: users, isLoading: isLoadingUsers } = useUserData();
 
+  const [viewCategory, setViewCategory] = useState(0);
+
   //エラーが発生したら表示しreturn
   if (isLoading || isLoadingUsers || isLoadingTokens) return <div>Loading...</div>;
   if((!users)) return <div> ユーザーが正しく読み込まれませんでした</div>;
@@ -204,6 +208,36 @@ export const RoyalityGraphMultiple = () => {
   });
 
 
+  
+  //現在表示するユーザーのみにする
+  const categories = ["すべて","素材生産者", "製材所", "集成材工場", "集成材デザイナー", "ユーザー"];
+  const selectedUserMap = new Map();
+  function setNewMap(mode){
+    const userHashsToKeep = [];
+    if ( mode === 0 ) {
+      users.forEach(u => {
+        userHashsToKeep.push(u.userHash);
+      })
+    } else {
+      users.forEach(u => {
+        if( u.role === categories[mode]) userHashsToKeep.push(u.userHash);
+      })
+    }
+   
+    
+    
+    userHashsToKeep.forEach(hash => {
+      if (userRdMap.has(hash)) {
+        selectedUserMap.set(hash, userRdMap.get(hash));
+      }
+    });
+  };
+  setNewMap(viewCategory);
+  if (selectedUserMap.size === 0) return <div><TabNFT />表示するグラフがありません category: {categories[viewCategory]}</div>;
+
+
+
+
   //2024/02/25のような日付形式を変換する場合
   function convertDateToISO(dateString) {
     // Dateオブジェクトを生成
@@ -212,10 +246,10 @@ export const RoyalityGraphMultiple = () => {
     return date.toISOString();
   }
 
-  console.log("userRdmap size", userRdMap.size);
+  console.log("selectedUserMap size", selectedUserMap.size);
   // userRDにdateプロパティを追加
   const userRdAccumulationMap = new Map();
-  userRdMap.forEach((userRd, hash) => {
+  selectedUserMap.forEach((userRd, hash) => {
     userRd?.forEach( rd => {
       rd.date = convertDateToISO(tokenData[rd.tokenId-1]?.productionDate);
     })
@@ -275,7 +309,7 @@ export const RoyalityGraphMultiple = () => {
     })
   };
   
-  console.log('userRdMap:', userRdMap);
+  console.log('selectedUserMap:', selectedUserMap);
   console.log('userRdAccumulationMap:', userRdAccumulationMap);
   console.log('chartData:', chartData);
   console.log('alldates:',allDates);
@@ -345,8 +379,9 @@ export const RoyalityGraphMultiple = () => {
       textAlign: 'center',
       //display: 'flex',
       backgroundColor: '#fafafa',
-      width: '100%',
-      height: '100%',
+      width: '80%',
+      height: '80%',
+      marginLeft: '100px',
       //transform: `scale(1)`, 
       //transformOrigin: 'center',
       boxSizing: 'border-box',
@@ -361,7 +396,12 @@ export const RoyalityGraphMultiple = () => {
 
   return (
       <div style={graphStyle}>
-          <Line data={chartData} options={chartOptions} />
+        {categories.map((category, index) => (
+          <button key={category} onClick={() => {setViewCategory(index)}}>
+            {category}
+          </button>
+        ))}
+        <Line data={chartData} options={chartOptions} />
       </div>
       
   );
