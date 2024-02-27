@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Button, ButtonGroup } from '@mui/material';
+import '@fontsource/roboto/400.css';
 
 const TabNFT = () => {
 
@@ -18,15 +20,13 @@ const TabNFT = () => {
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
 
-      <button onClick={() => goTo('/')}>ホームへ</button>
-      <button onClick={() => goTo('/view')}>NFT 閲覧</button>
-      <button onClick={() => goTo('/mint')}>NFT 発行</button>
-      <button onClick={() => goTo('/network')}>系譜図</button>
-      <button onClick={() => goTo('/royaltyAll')}>ロイヤリティ全員分</button>
-      <button onClick={() => goTo('/mypage')}>マイページ（保有NFT一覧）</button>
-      <button onClick={() => goTo('/royalty')}>マイページ（ロイヤリティ分配）</button>
-      <button onClick={() => goTo('/userinfo')}>マイページ（ユーザー情報）</button>
-    
+
+      <Button variant='outlined' onClick={() => goTo('/')}>Home</Button>
+      <Button variant='outlined' onClick={() => goTo('/view')}>View</Button>
+      <Button variant='outlined' onClick={() => goTo('/mint')}>Mint</Button>
+      <Button variant='outlined' >Graphs</Button>
+      <Button variant='outlined' onClick={() => goTo('/mypage')}>MyPage</Button>
+
     </div>
   );
 }

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import './styles.css'; 
-import Button from './Button';
 import TabNFT from './TabNFT';
 
+import '@fontsource/roboto/400.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'; // スタイルをインポート
+import { Button } from '@mui/material';
 
 
 /*
@@ -54,6 +55,7 @@ const IssueList = ({method}) => {
         {[0,1,2,3].includes(method) ? <p>生産地<br></br>
         <input type="text"></input></p> : null}
 
+        
         {[0, 1, 2, 3].includes(method) ?
         <p>生産日<br></br>
         <DatePicker
@@ -108,37 +110,85 @@ const IssueList = ({method}) => {
     </div>
   );
 };
-
 */
+
+const MintListTemp = ( {method}) => {
+  method = parseInt(method, 10);
+  const methods = ["採取", "切り出し", "ラミナ加工", "集成材加工"];
+
+
+  const listStyle = {
+    textAlign: 'center',
+    //display: 'flex',
+    backgroundColor: '#fafafa',
+    width: '300px',
+    height: '450px',
+    boxSizing: 'border-box',
+    borderRadius: '25px', // 角を丸くする設定
+    border: '1px solid #666666', // 線の色を指定
+    margin: '0px',
+    fontSize: '12px',
+    position: 'relative',
+  };
+
+
+
+  return (
+    <div style={listStyle}>
+      <div style={{ height: '350px' }}>
+        <h2>{methods[method]}</h2>
+
+        {[0, 1, 2, 3].includes(method) ? <p>生産者<br></br>
+          <input type="text"></input></p> : null}
+
+        {[0, 1, 2, 3].includes(method) ? <p>生産地<br></br>
+          <input type="text"></input></p> : null}
+
+
+        {[0, 1, 2, 3].includes(method) ? <p>生産日<br></br>
+          <input type="text"></input></p> : null}
+
+        {[0].includes(method) ? <p>樹種<br></br>
+          <input type="text"></input></p> : null}
+
+        {[1].includes(method) ? <p>切り出し数<br></br>
+          <input type="text"></input></p> : null}
+
+        {[1, 2, 3].includes(method) ? <p>素材NFT<br></br>
+          <input type="text"></input></p> : null}
+
+        {[1, 2, 3].includes(method) ? <p>木材選択<br></br>
+          <input type="text"></input></p> : null}
+
+      </div>
+
+
+      <Button style={{marginTop:'20px'}} variant='outlined' color='secondary' onClick={()=>alert("NFTが発行されました NFT-ID : ???")}> NFT発行 </Button>
+    </div>
+  );
+}
+
 const Mint = () => {
 
-  /*
+
   return (
     <div className='container-all'>
       <TabNFT></TabNFT>
 
       <div>
         <h1>NFT発行</h1>
-        <div style={{ display: 'flex', justifyContent: 'center', border: '1px solid #00aa00', gap: '50px', flexWrap: 'wrap', margin:'auto 150px'}}>
-          <IssueList method='0' />
-          <IssueList method='1' />
-          <IssueList method='2' />
-          <IssueList method='3' />
+        <div style={{ display: 'flex', justifyContent: 'center', border: '1px solid #00aa00', gap: '30px', flexWrap: 'wrap'}}>
+          <MintListTemp method='0' />
+          <MintListTemp method='1' />
+          <MintListTemp method='2' />
+          <MintListTemp method='3' />
     
-        </div>
-
-        
-
+        </div> 
       </div>
     </div>
   );
-  */
- return (
-  <div>
-    <TabNFT />
-    <h1>NFT発行：ページ作成中</h1>
-  </div>
- )
+
+
 };
 
 export default Mint;

@@ -1,5 +1,6 @@
 import CardSmall from './CardSmall';
 import TabNFT from './TabNFT';
+import '@fontsource/roboto/400.css';
 
 
 export const View = () => {

@@ -93,7 +93,7 @@ export function useRoyaltyDistribution() {
         distributionId: rd.distributionId,
         mintNum: rd.mintNum,
         tokenId: rd.tokenId,
-        profit: rd.profit,
+        profit: Number(rd.profit)*1000,
         totalValueIncrease: rd.totalValueIncrease
       };
 
@@ -102,7 +102,7 @@ export function useRoyaltyDistribution() {
           ...rdSame,
           recipient: rd.recipient1,
           valueIncrease: rd.valueIncrease1,
-          divident: rd.divident1,
+          divident: Number(rd.divident1)*1000,
         }
         rdDataFlatten.push(rdCopy1);
       }
@@ -111,7 +111,7 @@ export function useRoyaltyDistribution() {
           ...rdSame,
           recipient: rd.recipient2,
           valueIncrease: rd.valueIncrease2,
-          divident: rd.divident2,
+          divident: Number(rd.divident2)*1000,
         }
         rdDataFlatten.push(rdCopy2);
       }
@@ -120,7 +120,7 @@ export function useRoyaltyDistribution() {
           ...rdSame,
           recipient: rd.recipient3,
           valueIncrease: rd.valueIncrease3,
-          divident: rd.divident3,
+          divident: Number(rd.divident3)*1000,
         }
         rdDataFlatten.push(rdCopy3);
       }

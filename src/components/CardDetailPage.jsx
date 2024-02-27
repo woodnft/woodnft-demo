@@ -14,23 +14,15 @@ const CardDetailPage = () => {
         return <div>IDがありません</div>
     };
 
-    const alignStyle = {
-        container: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '10px',
-        },
-    };
+
 
 
 
     return (
-        <div>
+        <div className='container-all'>
             <TabNFT />
-            <h1>カード詳細 ID: {id}</h1>
 
-            <div style={{height: '1000px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '30px',}}>
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', margin:"50px auto",}}>
                 <Card tokenId={id} />
                 
             </div>

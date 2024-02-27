@@ -376,8 +376,6 @@ export const NetworkGraphHierarchical = (props) => {
 
   return (
     <div>
-      <TabNFT />
-      <h1>系譜図</h1>
       <div ref={networkRef} style={NetworkStyle}></div>
     </div>
   );

@@ -45,21 +45,25 @@ const Home = () => {
     },
     userButtonsContainer: {
       display: 'flex', // フレックスボックスでユーザーボタンを横並びに
+      //flexDirection: 'column',
       justifyContent: 'center', // 中央揃え
-      gap: '50px', // ボタン間の間隔
+      alignItems: 'center', // 中央揃え
+      gap: '70px', // ボタン間の間隔
     },
     userButton: {
-      width: '100px', // ボタンのサイズを正方形に
-      height: '100px',
-      backgroundColor: 'grey', // ボタンの背景色
-      color: 'white', // ボタンの文字色
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: '5px', // ボタンの角を丸く
+      width: '120px',
+      height: '120px', // 役割テキストの分だけ高さを調整
+      backgroundColor: 'grey',
+      color: 'white',
+      //display: 'flex',
+      //flexDirection: 'column', // 子要素を縦に並べる
+      //justifyContent: 'center',
+      //alignItems: 'center',
+      borderRadius: '5px',
       border: '1px solid #ffffff',
       padding: '0px',
       overflow: 'hidden',
+      marginBottom: '10px', // ボタン間のマージン調整
     },
     userInfo: {
       textAlign: 'center', // テキストを中央寄せ
@@ -76,17 +80,14 @@ const Home = () => {
     <div style={HomeStyle.container}>
       <h1 style={HomeStyle.title}>WOODNFT APP DEMO</h1>
       <div style={HomeStyle.userButtonsContainer}>
-        {selectionUsers.map((u) => (
-          <div onClick={()=>handleUserClick(u)}>
-            <button style={HomeStyle.userButton}>
-              <img src={"/woodnft-demo/user/"+u.profileUrl} alt={u.name} style={HomeStyle.userImage } />
+        {selectionUsers.map((u, index) => (
+          <div style={{display:'flex', alignItems: 'center', flexDirection: 'column' }}>
+            <button style={HomeStyle.userButton} onClick={() => handleUserClick(u) }>
+              <img src={"/woodnft-demo/user/"+"user"+index+".png" } alt={u.name} style={HomeStyle.userImage } />
             </button>
-            <div style={HomeStyle.userInfo}>
-              <div>{u.name}</div>
-              <div>{u.location}</div>
-              <div>{u.role}</div>
-              <div>{u.occupation}</div>
-            </div>
+
+              <div style={{textAlign: "center", marginTop:'10px'}}>{u.role}</div>
+
           </div>
         ))}
       </div>
