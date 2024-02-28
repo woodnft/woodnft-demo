@@ -8,6 +8,7 @@ const NetworkGraph = (props) => {
   const networkRef = useRef(null);
   const { data, isLoading } = useNFTData();
   const navigate = useNavigate();
+  const [isLoadingNetwork, setIsLoadingNetwork] = useState(true);
   
   console.log("nftData:", data);
 
@@ -16,6 +17,8 @@ const NetworkGraph = (props) => {
 
   //ネットワークの設定
   useEffect(() => {
+
+    setIsLoadingNetwork(true);
 
     const nodeSize = [25,40,100];
     //const nodeColor = [{background: 'white', border: 'yellow'}];
@@ -33,7 +36,7 @@ const NetworkGraph = (props) => {
     const nodes = data.map(d => ({
       id: d.tokenId, 
       shape: 'image', image: "/woodnft-demo/wood-images/"+ d.tokenId +".png",
-      label: 'ID:' + d.tokenId,
+      label: `[${d.tokenId}]`,
       size: d.productionMethod === "採取" ? nodeSize[1] : d.productionMethod === "集成材生産" ? nodeSize[2] : nodeSize[0],
       }
     ));
@@ -53,10 +56,10 @@ const NetworkGraph = (props) => {
       if (d.parentId.includes(',')){
         const parentIds = d.parentId.split(",");
         parentIds.forEach((p) => {
-          edges.push({from:p, to:d.tokenId, color: randomColors[data[p-1]?.originalWoodId -1], label: currentLabel});
+          edges.push({from:p, to:d.tokenId, /*color: randomColors[data[p-1]?.originalWoodId -1],*/ label: currentLabel});
         });
       }else{
-        edges.push({from: d.parentId, to: d.tokenId, color: randomColors[d.originalWoodId -1], label: currentLabel});
+        edges.push({from: d.parentId, to: d.tokenId, /*color: randomColors[d.originalWoodId -1],*/ label: currentLabel});
       }
       
     });
@@ -69,11 +72,13 @@ const NetworkGraph = (props) => {
     const networkData = { nodes, edges };
     const network = new Network(networkRef.current, networkData, options);
 
+    /*
     network.once("initRedraw", () => {
       network.focus(nodeIdToFocus, {
         scale: 4.0,
       });
     });
+    */
 
     // ネットワークの初期化後、イベントリスナーを設定
     network.on("click", function (params) {
@@ -125,6 +130,11 @@ const NetworkGraph = (props) => {
       requestAnimationFrame(animate);
     }
 
+      // "stabilized"イベントが発火したらローディング状態を解除
+      network.once("afterDrawing", () => {
+        setIsLoadingNetwork(false);
+      });
+
     // ノードを滑らかに動かし始める
     //moveNodesSmoothlyWithDirectionChange(network, floatingNodeIDs, 20000); // 20秒間動かす
     }, [data, isLoading]);
@@ -164,18 +174,19 @@ const NetworkGraph = (props) => {
 
       nodes: {
         font: {
-          color: '#000000',
+          color: 'white',
           size: 8
         }
       },
       edges: {
         width: 0.5,
+        color: 'white',
         arrows: {
           to: {enabled: true, scaleFactor: 0.5}, // すべてのエッジに矢印を表示
         },
         font: {
-          color: 'black', // ラベルのデフォルトの色
-          size: 8, // ラベルのフォントサイズ
+          color: 'white', // ラベルのデフォルトの色
+          size: 6, // ラベルのフォントサイズ
           strokeWidth: '0',
           // 他のフォントオプション...
         },
@@ -187,21 +198,26 @@ const NetworkGraph = (props) => {
   const NetworkStyle = {
     height: "80vh",
     width: "100%",
-    backgroundColor: "#dddddd"
+    backgroundColor: "#6f6d87"
   };
 
   return (
     <div>
       <TabNFT />
-      <h1>系譜図</h1>
+      <h1>系譜図 {isLoadingNetwork ? 'Loading...' : ''}</h1>
       <div ref={networkRef} style={NetworkStyle}></div>
+      
     </div>
   );
 };
 
 export default NetworkGraph;
 
-
+//////////////////////
+/////////////////////
+///階層表示
+////////////////////
+////////////////////
 export const NetworkGraphHierarchical = (props) => {
 
   const networkRef = useRef(null);

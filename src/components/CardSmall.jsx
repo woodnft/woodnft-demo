@@ -12,7 +12,7 @@ const CardSmall = ({ tokenId, userIdInMyPage }) => {
     const navigate = useNavigate();
 
     if(!tokenId) return <div>tokenid not input</div>;
-    if (isLoading || isLoadingUsers) return <div>Loading...</div>;
+    if (isLoading || isLoadingUsers) return <div></div>;
     //const token = data.find(d => d.tokenId === tokenId);
     const token = data[tokenId-1];
     if (!token) return <div>NFT not found, tokenID: {tokenId}</div>;

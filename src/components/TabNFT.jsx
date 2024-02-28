@@ -21,11 +21,11 @@ const TabNFT = () => {
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
 
 
-      <Button variant='outlined' onClick={() => goTo('/')}>Home</Button>
+      <Button variant='contained' onClick={() => goTo('/')}>Home</Button>
       <Button variant='outlined' onClick={() => goTo('/view')}>View</Button>
       <Button variant='outlined' onClick={() => goTo('/mint')}>Mint</Button>
-      <Button variant='outlined' >Graphs</Button>
-      <Button variant='outlined' onClick={() => goTo('/mypage')}>MyPage</Button>
+      <Button variant='outlined' onClick={() => goTo('/network')} >Graphs</Button>
+      <Button variant='contained' onClick={() => goTo('/mypage')}>My Page</Button>
 
     </div>
   );

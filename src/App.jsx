@@ -13,6 +13,8 @@ import PageRoyalty from './components/PageRoyalty';
 import { RoyalityGraphMultiple } from './components/RoyalityGraph';
 import UserInfo from './components/userInfo';
 import NetworkGraph from './components/NetworkGraph';
+import ProjectPage from './components/ProjectPage';
+import CardCapture from './components/CardCapture';
 
 
 function App() {
@@ -26,10 +28,12 @@ function App() {
         <Route path={`/Card`} element={<Card  />} />
         <Route path={`/CardSmall`} element={<CardSmall />} />
         <Route path={'/CardDetailPage/:id'} element={<CardDetailPage />} />
+        <Route path={'/CardCapture/:id'} element={<CardCapture />} />
         <Route path={`/royalty`} element={<PageRoyalty />} />
         <Route path={`/royaltyAll`} element={<RoyalityGraphMultiple />} />
         <Route path={`/userinfo`} element={<UserInfo />} />
         <Route path={`/network`} element={<NetworkGraph />} />
+        <Route path={`/project`} element={<ProjectPage />} />
 
       </Routes>
     </Router>

@@ -6,7 +6,7 @@ const PageRoyalty = () => {
 
     //userを読み込む
     const { user , isLoading } = useUser();
-    if(isLoading) return <div>Loading...</div>;
+    if(isLoading) return <div></div>;
 
     console.log('user:', user);
     if((user === null || user === undefined)) return <div> 現在のユーザーが設定されていません</div>;

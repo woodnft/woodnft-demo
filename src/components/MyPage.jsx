@@ -25,7 +25,7 @@ const MyPage = () => {
 
   
 
-  if(isLoading || isLoadingUser || isLoadingRD) return <div>Loading...</div>;
+  if(isLoading || isLoadingUser || isLoadingRD) return <div></div>;
   if((user === null || user === undefined)) return <div> 現在のユーザーが設定されていません</div>;
 
   const ownedTokens = data.filter(d => d.ownerId === user.userId || d.producerId === user.userId);
@@ -41,6 +41,16 @@ const MyPage = () => {
     ownedRoyalty += Number(rd.divident);
   })
 
+  const roles = ["素材生産者", "製材所", "集成材工場", "集成材デザイナー", "ユーザー"];
+
+  const userImageStyle ={
+    width: '200px',
+    height: '200px',
+    objectFit: 'cover',
+    marginTop: '50px',
+    marginRight: '50px',
+  };
+
   
 
   return (
@@ -48,10 +58,19 @@ const MyPage = () => {
       <TabNFT />
 
       <div>
-        <h1 style={{marginTop:'50px'}}>{user.name}</h1>
-        <h4>Ganache UserHash: "{user.userHash}"</h4>
-        <h3>"{user.role}"　場所: {user.location}　職種: {user.occupation}</h3>
-        <h3>取得ロイヤリティ: {Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(ownedRoyalty.toFixed(3))} 円 </h3>
+        
+        <div style={{display:'flex', justifyContent:'space-between'}}>
+          <div >
+            <h1 style={{ marginTop: '50px' }}>{user.name}</h1>
+            <p style={{fontWeight:'bold'}}>{user.userHash}</p>
+            <h3>{user.role}　場所: {user.location}　職種: {user.occupation}</h3>
+            <h3>取得ロイヤリティ: {Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(ownedRoyalty.toFixed(3))} 円 </h3>
+          </div>
+          <div >
+            <img src={`woodnft-demo/user/user${roles.findIndex(r => r === user.role)}.png`} style={userImageStyle} />
+          </div>
+        </div>
+        
 
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

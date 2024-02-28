@@ -18,7 +18,7 @@ const Card = ({ tokenId }) => {
     const { data: users, isLoading: isLoadingUsers } = useUserData();
 
 
-    if (isLoading || isLoadingUsers) return <div>Loading...</div>;
+    if (isLoading || isLoadingUsers) return <div></div>;
     //const token = data.find(d => d.tokenId === tokenId);
     const token = data[tokenId-1];
     if (!token) return <div>NFT not found, tokenID: {tokenId}</div>;
@@ -57,7 +57,7 @@ const Card = ({ tokenId }) => {
 
 
     return (
-        <div style={cardStyle}> 
+        <div style={cardStyle} id="woodCard"> 
 
             <h2 style={{marginTop:'34px'}}>Wood-Info  ID: {token.tokenId}</h2>
             <div style={{margin:'-4px 110px'}}>

@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useUser } from "./hooks/userContext";
 import { useUserData } from "./hooks/customHooks";
+import { Button, Typography } from "@mui/material";
+import Wood3D from "./Wood3D";
+import styled from "@emotion/styled";
 
 
 const Home = () => {
@@ -27,6 +30,10 @@ const Home = () => {
     navigate(`/mypage`);
   };
 
+  const ProjectButton = styled(Button)`
+    color: white;
+  `;
+
 
   const HomeStyle = {
     container: {
@@ -35,9 +42,9 @@ const Home = () => {
       alignItems: 'center',
       justifyContent: 'flex-start',
       height: '100vh', // 画面の高さを100vhに設定して、中央に配置
-      paddingTop: '30vh',
-      backgroundColor: '#111111', // 背景色は黒
-      color: 'white', // 文字色は白
+      backgroundColor: '#777777', // 背景色は黒
+      color: 'white', // 文字色は白,
+      overflow: 'clip'
     },
     title: {
       textAlign: 'center', // タイトルを中央揃え
@@ -77,19 +84,28 @@ const Home = () => {
   };
 
   return (
+
     <div style={HomeStyle.container}>
-      <h1 style={HomeStyle.title}>WOODNFT APP DEMO</h1>
-      <div style={HomeStyle.userButtonsContainer}>
-        {selectionUsers.map((u, index) => (
-          <div style={{display:'flex', alignItems: 'center', flexDirection: 'column' }}>
-            <button style={HomeStyle.userButton} onClick={() => handleUserClick(u) }>
-              <img src={"/woodnft-demo/user/"+"user"+index+".png" } alt={u.name} style={HomeStyle.userImage } />
-            </button>
+      <div style={{ position: 'relative', width:"100%", height:"100%", marginTop:'5%'}}>
+        <Wood3D />
+      </div>
 
-              <div style={{textAlign: "center", marginTop:'10px'}}>{u.role}</div>
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: 'white', zIndex: 1 }}>
+        <h1 style={HomeStyle.title}>WOODNFT APP DEMO</h1>
+        <ProjectButton onClick={()=>navigate("/project")}>{<Typography>What is WOODNFT</Typography>}</ProjectButton>
 
+        <div style={HomeStyle.userButtonsContainer}>
+          {selectionUsers.map((u, index) => (
+            <div style={{display:'flex', alignItems: 'center', flexDirection: 'column' }}>
+              <button style={HomeStyle.userButton} onClick={() => handleUserClick(u) }>
+                <img src={"/woodnft-demo/user/"+"user"+index+".png" } alt={u.name} style={HomeStyle.userImage } />
+              </button>
+
+              <div style={{textAlign: "center", marginTop:'10px', fontWeight:'bold', width:'140px'}}>{u.role}</div>
+
+            </div>
+          ))}
           </div>
-        ))}
       </div>
     </div>
   )

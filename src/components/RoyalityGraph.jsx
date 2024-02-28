@@ -21,7 +21,7 @@ const RoyalityGraph = () => {
   const { data: tokenData, isLoading: isLoadingTokens } = useNFTData();
 
   //エラーが発生したら表示しreturn
-  if (isLoading || isLoadingUser || isLoadingTokens) return <div>Loading...</div>;
+  if (isLoading || isLoadingUser || isLoadingTokens) return <div></div>;
   if((user === null || user === undefined)) return <div> 現在のユーザーが設定されていません</div>;
   if (!rdData || !rdDataFlatten) return <div>ロイヤリティ変遷が正しく読み込まれませんでした</div>;
   if (!tokenData) return <div>NFTデータが読み込まれませんでした</div>
@@ -114,7 +114,7 @@ const RoyalityGraph = () => {
         },
         // 1ヵ月の表示範囲を設定
         min: rdAccumulation[0]?.date,
-        max: rdAccumulation[-1]?.date,
+        max: rdAccumulation[rdAccumulation.length - 1]?.date,
       }
     },
     plugins: {
@@ -191,7 +191,7 @@ export const RoyalityGraphMultiple = () => {
   const [viewCategory, setViewCategory] = useState(0);
 
   //エラーが発生したら表示しreturn
-  if (isLoading || isLoadingUsers || isLoadingTokens) return <div>Loading...</div>;
+  if (isLoading || isLoadingUsers || isLoadingTokens) return <div></div>;
   if((!users)) return <div> ユーザーが正しく読み込まれませんでした</div>;
   if (!rdData || !rdDataFlatten) return <div>ロイヤリティ変遷が正しく読み込まれませんでした</div>;
   if (!tokenData) return <div>NFTデータが読み込まれませんでした</div>
