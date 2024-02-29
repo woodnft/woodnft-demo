@@ -1,11 +1,26 @@
 import CardSmall from './CardSmall';
+import { useState } from 'react';
 import TabNFT from './TabNFT';
+import { Pagination } from '@mui/material';
 import '@fontsource/roboto/400.css';
 
 
 export const View = () => {
+  const [page, setPage] = useState(1);
+  const cardsPerPage = 50;
+  const allCardsNumber = 498;
+  const pageNumber = Math.ceil(allCardsNumber/cardsPerPage);
 
-  const cardIds = ["1","2","3","4","5","6","7"];
+  //ページネーションに対応
+  const currentCardIds = [];
+  for (let i=(page-1)*cardsPerPage+1; i<= page*cardsPerPage; i++) {
+    if ( i <= allCardsNumber){
+      currentCardIds.push(i.toString());
+    }
+  }
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
 
   
   return (
@@ -15,9 +30,11 @@ export const View = () => {
         <TabNFT></TabNFT>
 
         <h1>NFT閲覧</h1>
-        <div style={{display:'flex', justifyContent:'center', border:'1px solid #00aa00'}}>
+        <Pagination count={pageNumber} page={page} onChange={handleChange} color='primary' variant='outlined'/>
+
+        <div style={{display:'flex', justifyContent:'center', border:'1px solid #00aa00', marginTop:'20px'}}>
           <div className='cardlist'>
-            {cardIds.map((id) => (
+            {currentCardIds.map((id) => (
               <CardSmall tokenId={id}/>
             ))}
           </div>

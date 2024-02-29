@@ -17,23 +17,17 @@ const Home = () => {
   if (isLoading || !users) return <div>Loading...</div>;
 
 
-  //選択できるユーザーのIDを入力
-  const selectionIds = [ "1", "17", "18", "21", "25" ];
+  const roles = ["素材生産者", "製材所", "集成材工場", "集成材デザイナー", "ユーザー"];
   
-  const selectionUsers = [];
-  selectionIds.forEach((i) => {
-    selectionUsers.push(users.find(u => u.userId === i));
-  });
 
+  const handleUserClick = (selectedIndex) => {
+    const roleUsers = users.filter(u => u.role === roles[selectedIndex]);
+    const selectedUser = roleUsers[Math.floor(Math.random()*roleUsers.length)];
 
-  const handleUserClick = (selectedUser) => {
     setUser(selectedUser);
     navigate(`/mypage`);
   };
 
-  const ProjectButton = styled(Button)`
-    color: white;
-  `;
 
 
   const HomeStyle = {
@@ -42,7 +36,7 @@ const Home = () => {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'flex-start',
-      height: '100vh', // 画面の高さを100vhに設定して、中央に配置
+      height: '110vh', // 画面の高さを100vhに設定して、中央に配置
       backgroundColor: '#55555d', // 背景色は黒
       color: 'white', // 文字色は白,
       overflow: 'clip'
@@ -114,13 +108,13 @@ const Home = () => {
         <h1 style={HomeStyle.title}>WOODNFT APP DEMO</h1>
 
         <div style={HomeStyle.userButtonsContainer}>
-          {selectionUsers.map((u, index) => (
+          {[0,1,2,3,4].map((i) => (
             <div style={HomeStyle.imageAndCaption}>
-              <button style={HomeStyle.userButton} onClick={() => handleUserClick(u) }>
-                <img src={"/woodnft-demo/user/"+"user"+index+".png" } alt={u.name} style={HomeStyle.userImage } />
+              <button style={HomeStyle.userButton} onClick={() => handleUserClick(i) }>
+                <img src={"/woodnft-demo/user/"+"user"+i+".png" } alt={"uesr"+i} style={HomeStyle.userImage } />
               </button>
 
-              <div style={{textAlign: "center", marginTop:'10px', fontWeight:'bold', width:'140px'}}>{u.role}</div>
+              <div style={{textAlign: "center", marginTop:'10px', fontWeight:'bold', width:'140px'}}>{roles[i]}</div>
 
             </div>
           ))}

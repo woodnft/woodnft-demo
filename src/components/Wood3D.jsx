@@ -23,13 +23,18 @@ function Model({ modelPath }) {
 }
 
 function Wood3D() {
-    const modelPath = '3d/3d01.glb'; // ここにGLTFモデルのパスを指定
+    const modelIds = [ '001', '100' ];
+    const modelPath = `3d/${Math.random() < 0.75 ? modelIds[0] : modelIds[1] }.glb`;
+
+    const cameraY = Math.random() * 50;
 
     return (
 
-        <Canvas camera={{ position: [0, 10, 50], fov: 50 }} style={{ height: "100%", width: "100%" }}>
-            <ambientLight intensity={0.5} />
-            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+        <Canvas camera={{ position: [0, cameraY, 65], fov: 50 }} style={{ height: "100%", width: "100%" }}>
+            <ambientLight intensity={1} />
+            <directionalLight position={[-5, 5, 5]} intensity={4} />
+
+
             <Model modelPath={modelPath} />
         </Canvas>
 

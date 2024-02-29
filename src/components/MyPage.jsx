@@ -56,7 +56,7 @@ const MyPage = () => {
 
         <div >
           <h1 style={{ marginTop: '50px' }}>{user.name}</h1>
-          <h3>{user.role}　場所: {user.location}　職種: {user.occupation}</h3>
+          <h3>"{user.role}"　場所: {user.location}　職種: {user.occupation}</h3>
           <h3>取得ロイヤリティ: {Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(ownedRoyalty.toFixed(3))} 円 </h3>
         </div>
 
