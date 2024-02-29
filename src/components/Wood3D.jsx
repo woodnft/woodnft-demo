@@ -23,7 +23,7 @@ function Model({ modelPath }) {
 }
 
 function Wood3D() {
-    const modelPath = 'woodnft-demo/3d/3d01.glb'; // ここにGLTFモデルのパスを指定
+    const modelPath = '3d/3d01.glb'; // ここにGLTFモデルのパスを指定
 
     return (
 
