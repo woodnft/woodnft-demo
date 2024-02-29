@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/woodnft-demo/static/css/main.486bb834.css",
-    "main.js": "/woodnft-demo/static/js/main.fc0b29e7.js",
+    "main.js": "/woodnft-demo/static/js/main.8209ecae.js",
     "static/media/roboto-latin-500-normal.woff2": "/woodnft-demo/static/media/roboto-latin-500-normal.f25d774ecfe0996f8eb5.woff2",
     "static/media/roboto-latin-400-normal.woff2": "/woodnft-demo/static/media/roboto-latin-400-normal.b009a76ad6afe4ebd301.woff2",
     "static/media/roboto-cyrillic-ext-400-normal.woff2": "/woodnft-demo/static/media/roboto-cyrillic-ext-400-normal.804378952da8a10faae2.woff2",
@@ -32,10 +32,10 @@
     "static/media/roboto-greek-ext-400-normal.woff": "/woodnft-demo/static/media/roboto-greek-ext-400-normal.f708607d2a7290fb8bfa.woff",
     "index.html": "/woodnft-demo/index.html",
     "main.486bb834.css.map": "/woodnft-demo/static/css/main.486bb834.css.map",
-    "main.fc0b29e7.js.map": "/woodnft-demo/static/js/main.fc0b29e7.js.map"
+    "main.8209ecae.js.map": "/woodnft-demo/static/js/main.8209ecae.js.map"
   },
   "entrypoints": [
     "static/css/main.486bb834.css",
-    "static/js/main.fc0b29e7.js"
+    "static/js/main.8209ecae.js"
   ]
 }
