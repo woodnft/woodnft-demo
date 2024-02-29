@@ -43,13 +43,7 @@ const MyPage = () => {
 
   const roles = ["素材生産者", "製材所", "集成材工場", "集成材デザイナー", "ユーザー"];
 
-  const userImageStyle ={
-    width: '200px',
-    height: '200px',
-    objectFit: 'cover',
-    marginTop: '50px',
-    marginRight: '50px',
-  };
+
 
   
 
@@ -59,17 +53,14 @@ const MyPage = () => {
 
       <div>
         
-        <div style={{display:'flex', justifyContent:'space-between'}}>
-          <div >
-            <h1 style={{ marginTop: '50px' }}>{user.name}</h1>
-            <p style={{fontWeight:'bold'}}>{user.userHash}</p>
-            <h3>{user.role}　場所: {user.location}　職種: {user.occupation}</h3>
-            <h3>取得ロイヤリティ: {Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(ownedRoyalty.toFixed(3))} 円 </h3>
-          </div>
-          <div >
-            <img src={`woodnft-demo/user/user${roles.findIndex(r => r === user.role)}.png`} style={userImageStyle} />
-          </div>
+
+        <div >
+          <h1 style={{ marginTop: '50px' }}>{user.name}</h1>
+          <h3>{user.role}　場所: {user.location}　職種: {user.occupation}</h3>
+          <h3>取得ロイヤリティ: {Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(ownedRoyalty.toFixed(3))} 円 </h3>
         </div>
+
+
         
 
         <TabContext value={value}>

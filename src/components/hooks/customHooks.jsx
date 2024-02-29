@@ -15,11 +15,14 @@ export function useNFTData() {
         Papa.parse(csvText, {
           header: true,
           complete: (results) => {
+            
             const resultData = results.data;
             resultData.forEach ( d => {
               d.salesPrice = d.salesPrice.replace(",","");
             })
             setData(resultData);
+    
+           setData(results.data);
             setIsLoading(false);
           }
         });

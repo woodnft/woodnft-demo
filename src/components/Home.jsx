@@ -4,6 +4,7 @@ import { useUserData } from "./hooks/customHooks";
 import { Button, Typography } from "@mui/material";
 import Wood3D from "./Wood3D";
 import styled from "@emotion/styled";
+import '@fontsource/roboto/500.css';
 
 
 const Home = () => {
@@ -48,14 +49,17 @@ const Home = () => {
     },
     title: {
       textAlign: 'center', // タイトルを中央揃え
-      marginBottom: '100px', // ユーザーボタンとの間隔
+      marginBottom: '80px', // ユーザーボタンとの間隔
+      width: '100vw',
     },
     userButtonsContainer: {
       display: 'flex', // フレックスボックスでユーザーボタンを横並びに
       //flexDirection: 'column',
       justifyContent: 'center', // 中央揃え
-      alignItems: 'center', // 中央揃え
-      gap: '70px', // ボタン間の間隔
+      alignItems: 'flex-start', // 中央揃え
+      gap: '30px', // ボタン間の間隔
+      width: '100%',
+      flexWrap: 'wrap',
     },
     userButton: {
       width: '120px',
@@ -71,6 +75,7 @@ const Home = () => {
       padding: '0px',
       overflow: 'hidden',
       marginBottom: '10px', // ボタン間のマージン調整
+      backgroundColor: '#8a8a8a',
     },
     userInfo: {
       textAlign: 'center', // テキストを中央寄せ
@@ -80,6 +85,22 @@ const Home = () => {
       width: '100%',
       height: '100%',
       objectFit: 'cover',
+    },
+    flexUsers: {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -55%)',
+      color: 'white',
+      zIndex: 1,
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    imageAndCaption: {
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'column',
     }
   };
 
@@ -90,13 +111,12 @@ const Home = () => {
         {/*<Wood3D />*/}
       </div>
 
-      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: 'white', zIndex: 1 }}>
+      <div style={HomeStyle.flexUsers}>
         <h1 style={HomeStyle.title}>WOODNFT APP DEMO</h1>
-        <ProjectButton onClick={()=>navigate("/project")}>{<Typography>What is WOODNFT</Typography>}</ProjectButton>
 
         <div style={HomeStyle.userButtonsContainer}>
           {selectionUsers.map((u, index) => (
-            <div style={{display:'flex', alignItems: 'center', flexDirection: 'column' }}>
+            <div style={HomeStyle.imageAndCaption}>
               <button style={HomeStyle.userButton} onClick={() => handleUserClick(u) }>
                 <img src={"/woodnft-demo/user/"+"user"+index+".png" } alt={u.name} style={HomeStyle.userImage } />
               </button>
@@ -105,6 +125,15 @@ const Home = () => {
 
             </div>
           ))}
+          <div style={{ width: '140px', textAlign:'center' }}>
+            <Button style={HomeStyle.userButton} onClick={()=>navigate(`/project`)}>
+              <Typography variant="button" display="block" >
+                What <br></br> is <br></br> WOODNFT <br></br>
+              </Typography>
+            </Button>
+          </div>
+          
+          
           </div>
       </div>
     </div>
