@@ -177,7 +177,7 @@ const Mint = () => {
 
       <div>
         <h1>NFT発行</h1>
-        <div style={{ display: 'flex', justifyContent: 'center', border: '1px solid #00aa00', gap: '30px', flexWrap: 'wrap'}}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '30px', flexWrap: 'wrap'}}>
           <MintListTemp method='0' />
           <MintListTemp method='1' />
           <MintListTemp method='2' />

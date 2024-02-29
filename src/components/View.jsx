@@ -32,7 +32,7 @@ export const View = () => {
         <h1>NFT閲覧</h1>
         <Pagination count={pageNumber} page={page} onChange={handleChange} color='primary' variant='outlined'/>
 
-        <div style={{display:'flex', justifyContent:'center', border:'1px solid #00aa00', marginTop:'20px'}}>
+        <div style={{display:'flex', justifyContent:'center', marginTop:'20px'}}>
           <div className='cardlist'>
             {currentCardIds.map((id) => (
               <CardSmall tokenId={id}/>

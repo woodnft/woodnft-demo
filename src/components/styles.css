@@ -13,7 +13,7 @@
   }
   
 .container-all {
-  border: 1px solid #aa0000;
+  /*border: 1px solid #aa0000;*/
   width: 100%;
   max-width: 800px;
   /* 例: ページの最大幅を設定 */
@@ -27,7 +27,7 @@
   flex-wrap: wrap;
   justify-content: center;
   max-width: 800px;
-  border: 1px solid #0000aa;
+  /*border: 1px solid #0000aa;*/
   gap: 30px
 }
 

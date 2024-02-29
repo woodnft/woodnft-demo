@@ -3,6 +3,7 @@ import TabNFT from './TabNFT';
 import { useNFTData } from './hooks/customHooks';
 import { DataSet, Network } from 'vis-network/standalone'; 
 import { useNavigate } from 'react-router-dom';
+import { Switch, CircularProgress, FormControlLabel } from '@mui/material';
 
 const NetworkGraph = (props) => {
   const networkRef = useRef(null);
@@ -203,15 +204,42 @@ const NetworkGraph = (props) => {
 
   return (
     <div>
-      <TabNFT />
-      <h1>系譜図 {isLoadingNetwork ? 'Loading...' : ''}</h1>
+    
       <div ref={networkRef} style={NetworkStyle}></div>
+      {isLoadingNetwork ?
+        <CircularProgress size={200} style={{position:'absolute', left:'50%', top:'50%'}} 
+          sx={{color:'white'}}/>
+        : ""}
       
     </div>
   );
 };
 
 export default NetworkGraph;
+
+
+export const NetworkGraphWithToggle = () => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
+
+
+
+  return (
+    <div>
+      <TabNFT />
+      <h1>系譜図</h1>
+      <FormControlLabel 
+        control={<Switch checked={isChecked} onChange={handleChange} /> }
+        label="Display Network/ 系譜図を表示する（読み込みに1分ほどかかります）" />
+    
+      {isChecked ? <NetworkGraph /> : ""}
+    </div>
+  )
+
+}
 
 //////////////////////
 /////////////////////

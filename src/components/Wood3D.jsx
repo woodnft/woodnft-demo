@@ -24,7 +24,7 @@ function Model({ modelPath }) {
 
 function Wood3D() {
     const modelIds = [ '001', '100' ];
-    const modelPath = `3d/${Math.random() < 0.75 ? modelIds[0] : modelIds[1] }.glb`;
+    const modelPath = `/3d/${Math.random() < 0.75 ? modelIds[0] : modelIds[1] }.glb`;
 
     const cameraY = Math.random() * 50;
 

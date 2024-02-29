@@ -74,7 +74,7 @@ const MyPage = () => {
             {ownedTokens.length === 0 ? (
               <p>保有するNFTデータはありません</p>
             ) : (
-              <div style={{ display: 'flex', justifyContent: 'center', border: '1px solid #00aa00' }}>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <div className='cardlist'>
                   {ownedTokens.map((item) => (
                     <CardSmall tokenId={item.tokenId} userIdInMyPage={user.userId} />))}

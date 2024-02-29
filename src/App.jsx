@@ -12,7 +12,7 @@ import CardSmall from "./components/CardSmall";
 import PageRoyalty from './components/PageRoyalty';
 import { RoyalityGraphMultiple } from './components/RoyalityGraph';
 import UserInfo from './components/userInfo';
-import NetworkGraph from './components/NetworkGraph';
+import { NetworkGraphWithToggle } from './components/NetworkGraph';
 import ProjectPage from './components/ProjectPage';
 import CardCapture from './components/CardCapture';
 
@@ -32,7 +32,7 @@ function App() {
         <Route path={`/royalty`} element={<PageRoyalty />} />
         <Route path={`/royaltyAll`} element={<RoyalityGraphMultiple />} />
         <Route path={`/userinfo`} element={<UserInfo />} />
-        <Route path={`/network`} element={<NetworkGraph />} />
+        <Route path={`/network`} element={<NetworkGraphWithToggle />} />
         <Route path={`/project`} element={<ProjectPage />} />
 
       </Routes>

@@ -24,7 +24,7 @@ const TabNFT = () => {
       <Button variant='contained' onClick={() => goTo('/')}>Home</Button>
       <Button variant='outlined' onClick={() => goTo('/view')}>View</Button>
       <Button variant='outlined' onClick={() => goTo('/mint')}>Mint</Button>
-      <Button variant='outlined' onClick={() => goTo('/network')} >Graphs</Button>
+      <Button variant='outlined' onClick={() => goTo('/network')} >Graph</Button>
       <Button variant='contained' onClick={() => goTo('/mypage')}>My Page</Button>
 
     </div>
