@@ -43,7 +43,7 @@ const Home = () => {
       alignItems: 'center',
       justifyContent: 'flex-start',
       height: '100vh', // 画面の高さを100vhに設定して、中央に配置
-      backgroundColor: '#777777', // 背景色は黒
+      backgroundColor: '#55555d', // 背景色は黒
       color: 'white', // 文字色は白,
       overflow: 'clip'
     },
@@ -71,11 +71,10 @@ const Home = () => {
       //justifyContent: 'center',
       //alignItems: 'center',
       borderRadius: '5px',
-      border: '1px solid #ffffff',
+      border: '1.5px solid #ffffff',
       padding: '0px',
       overflow: 'hidden',
       marginBottom: '10px', // ボタン間のマージン調整
-      backgroundColor: '#8a8a8a',
     },
     userInfo: {
       textAlign: 'center', // テキストを中央寄せ
@@ -108,7 +107,7 @@ const Home = () => {
 
     <div style={HomeStyle.container}>
       <div style={{ position: 'relative', width:"100%", height:"100%", marginTop:'5%'}}>
-        {/*<Wood3D />*/}
+        <Wood3D />
       </div>
 
       <div style={HomeStyle.flexUsers}>
@@ -126,7 +125,7 @@ const Home = () => {
             </div>
           ))}
           <div style={{ width: '140px', textAlign:'center' }}>
-            <Button style={HomeStyle.userButton} onClick={()=>navigate(`/project`)}>
+            <Button style={{ ...HomeStyle.userButton, backgroundColor: 'rgba(50,50,50,0.5)', }} onClick={()=>navigate(`/project`)}>
               <Typography variant="button" display="block" >
                 What <br></br> is <br></br> WOODNFT <br></br>
               </Typography>
