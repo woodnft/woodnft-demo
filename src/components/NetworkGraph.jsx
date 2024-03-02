@@ -523,14 +523,14 @@ export const NetworkGraphSpecial = (props) => {
     function moveNodesSmoothlyWithDirectionChange(network, nodeIDs, duration) {
       const startTime = performance.now();
       let lastDirectionChangeTime = startTime; // 最後に方向を変えた時間
-      const directionChangeInterval = 5000; // 方向を変える間隔（ミリ秒）
+      const directionChangeInterval = 30000; // 方向を変える間隔（ミリ秒）
       let angle = Math.random() * Math.PI * 2; // 初期角度
 
       function animate(time) {
         const elapsedTime = time - startTime;
         if (elapsedTime > duration) return; // 指定時間が経過したら停止
 
-        // 5秒ごとに方向を変更
+        // n秒ごとに方向を変更
         if (time - lastDirectionChangeTime > directionChangeInterval) {
           angle = Math.random() * Math.PI * 2; // 新しい角度
           lastDirectionChangeTime = time;
@@ -538,7 +538,7 @@ export const NetworkGraphSpecial = (props) => {
 
         nodeIDs.forEach(nodeID => {
           const nodePosition = network.getPositions([nodeID])[nodeID];
-          const stepSize = 10; // 1ステップのサイズ（ピクセル）
+          const stepSize = 10 // 1ステップのサイズ（ピクセル）
 
           // 新しい位置を計算
           const newPosition = {
@@ -563,7 +563,7 @@ export const NetworkGraphSpecial = (props) => {
       });
 
     // ノードを滑らかに動かし始める
-    //moveNodesSmoothlyWithDirectionChange(network, floatingNodeIDs, 20000); // 20秒間動かす
+    moveNodesSmoothlyWithDirectionChange(network, floatingNodeIDs, 1000*60*60); // n秒間動かす
     }, [data, isLoading]);
     
 
