@@ -15,7 +15,7 @@ import UserInfo from './components/userInfo';
 import { NetworkGraphWithToggle } from './components/NetworkGraph';
 import ProjectPage from './components/ProjectPage';
 import CardCapture from './components/CardCapture';
-import SpecialPage from './components/Special';
+import SpecialPage, {SpecialPage02} from './components/Special';
 
 
 function App() {
@@ -36,6 +36,7 @@ function App() {
         <Route path={`/network`} element={<NetworkGraphWithToggle />} />
         <Route path={`/project`} element={<ProjectPage />} />
         <Route path={`/special`} element={<SpecialPage />} />
+        <Route path={`/special2`} element={<SpecialPage02 />} />
 
       </Routes>
     </Router>

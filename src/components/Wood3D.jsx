@@ -77,7 +77,7 @@ export function Wood3DSpecial() {
         // 30秒ごとに画像を変更するためのタイマーを設定
         const timer = setInterval(() => {
           setCurrentIndex(() => Math.floor(Math.random()*modelIds.length));
-        }, 20000); // 30000ミリ秒 = 30秒
+        }, 30000); // 30000ミリ秒 = 30秒
     
         // コンポーネントのアンマウント時にタイマーをクリア
         return () => clearInterval(timer);
