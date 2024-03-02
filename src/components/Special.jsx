@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "./hooks/userContext";
 import { useUserData } from "./hooks/customHooks";
 import { Button, Typography } from "@mui/material";
-import Wood3D from "./Wood3D";
+import { Wood3DSpecial } from "./Wood3D";
 import styled from "@emotion/styled";
 import '@fontsource/roboto/500.css';
 import { NetworkGraphSpecial } from "./NetworkGraph";
@@ -102,7 +102,7 @@ const SpecialPage = () => {
 
     <div style={HomeStyle.container}>
       <div style={{ position: 'relative', width:"100%", height:"100%", marginTop:'5%', zIndex:'1'}}>
-        <Wood3D />
+        <Wood3DSpecial />
       </div>
 
       <div style={HomeStyle.flexUsers}>

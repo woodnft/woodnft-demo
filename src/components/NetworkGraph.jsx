@@ -538,7 +538,7 @@ export const NetworkGraphSpecial = (props) => {
 
         nodeIDs.forEach(nodeID => {
           const nodePosition = network.getPositions([nodeID])[nodeID];
-          const stepSize = 10 // 1ステップのサイズ（ピクセル）
+          const stepSize = 20 // 1ステップのサイズ（ピクセル）
 
           // 新しい位置を計算
           const newPosition = {
