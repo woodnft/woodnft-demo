@@ -81,6 +81,7 @@ const NetworkGraph = (props) => {
     });
     */
 
+    /*
     // ネットワークの初期化後、イベントリスナーを設定
     network.on("click", function (params) {
       // params.nodesには、クリックされたノードのIDの配列が含まれています。
@@ -91,6 +92,7 @@ const NetworkGraph = (props) => {
         navigate("/CardDetailPage/"+nodeId);
       }
     });
+    */
       
 
     // ノードを滑らかに動かす関数
